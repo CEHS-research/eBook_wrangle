@@ -1,7 +1,7 @@
 --- 
 title: "Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling"
 author: "Sarah Schwartz & Tyson Barrett"
-date: "Last updated: 2018-09-07"
+date: "Last updated: 2018-09-17"
 documentclass: book
 description: "Data Management: Importing, Subsetting, Creating Variables, and Saving."
 knit: "bookdown::render_book"
