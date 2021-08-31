@@ -4,33 +4,84 @@
 
 ## Importing Data
 
-type here
+`R` can import nearly any file type, but most importantly, it can work with CSV, SPSS, and Excel (since they are the most common forms for students in this course).
 
-### in a package
+### In a package
+
+First, some packages come with data. You can access these data by using:
+
+```{r, eval=FALSE}
+data("data_name")
+```
+
+For example, `dplyr` comes with a star wars data set:
+
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+data("starwars")
+starwars
+```
 
 ### R (.RData)
 
-### Text file (.csv)
+When data are saved from `R`, it can be saved as a `.RData` file. To import these, we can use:
 
-### SPSS (.sav)
+```{r, eval=FALSE}
+load("file.RData")
+```
 
-### Excel (.xls)
+where `"file.RData"` is the name of the file you are importing.
+
+### CSV, SPSS, Excel, Etc.
+
+The others can imported using the `rio` package's `import()` function.
+
+```{r, eval=FALSE}
+data_csv <- import("file.csv")
+data_excel <- import("file.xlsx")
+data_spss <- import("file.sav")
+```
+
 
 ### By hand `tribble()`
+
+You can also enter data by hand using the `tribble()` function from the `tidyverse`.
+
+```{r}
+tribble(
+  ~var1, ~var2,
+  10,    "psychology",
+  12,    "biology",
+  7,     "psychology"
+)
+```
 
 
 --------------------------------------
 
 ## Saving Data
 
+You can always save data but often it isn't necessary. Why is that? Because you will save your code that does all the stuff you want to do with the data anyway so no need to save it. However, sometimes other researchers want access to the cleaned data and they don't use `R` so we'll show a few examples.
 
 ### R (.RData)
 
-### Text file (.csv)
+```{r, eval=FALSE}
+save(data, "file.RData")
+```
+
+### CSV and Excel
+
+```{r, eval=FALSE}
+write_csv(data, "file.csv")
+```
+
 
 ### SPSS (.sav)
 
-### Excel (.xls)
+```{r, eval=FALSE}
+library(haven)
+write_sav(data, "file.sav")
+```
 
 
 

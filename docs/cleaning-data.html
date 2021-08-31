@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Cleaning Data | Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling</title>
+  <meta name="description" content="Data Management: Importing, Subsetting, Creating Variables, and Saving." />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Cleaning Data | Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/EQM_v1_cover.png" />
+  <meta property="og:description" content="Data Management: Importing, Subsetting, Creating Variables, and Saving." />
+  <meta name="github-repo" content="cehs-research/eBook_wrangle" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Cleaning Data | Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling" />
+  
+  <meta name="twitter:description" content="Data Management: Importing, Subsetting, Creating Variables, and Saving." />
+  <meta name="twitter:image" content="/EQM_v1_cover.png" />
+
+<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tidy-data.html"/>
+<link rel="next" href="tidyverse.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 1: Data Wrangling</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-authors"><i class="fa fa-check"></i>The Authors</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="data-in-and-out.html"><a href="data-in-and-out.html"><i class="fa fa-check"></i><b>1</b> Data In and Out</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="data-in-and-out.html"><a href="data-in-and-out.html#importing-data"><i class="fa fa-check"></i><b>1.1</b> Importing Data</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="data-in-and-out.html"><a href="data-in-and-out.html#in-a-package"><i class="fa fa-check"></i><b>1.1.1</b> In a package</a></li>
+<li class="chapter" data-level="1.1.2" data-path="data-in-and-out.html"><a href="data-in-and-out.html#r-.rdata"><i class="fa fa-check"></i><b>1.1.2</b> R (.RData)</a></li>
+<li class="chapter" data-level="1.1.3" data-path="data-in-and-out.html"><a href="data-in-and-out.html#csv-spss-excel-etc."><i class="fa fa-check"></i><b>1.1.3</b> CSV, SPSS, Excel, Etc.</a></li>
+<li class="chapter" data-level="1.1.4" data-path="data-in-and-out.html"><a href="data-in-and-out.html#by-hand-tribble"><i class="fa fa-check"></i><b>1.1.4</b> By hand <code>tribble()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="data-in-and-out.html"><a href="data-in-and-out.html#saving-data"><i class="fa fa-check"></i><b>1.2</b> Saving Data</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="data-in-and-out.html"><a href="data-in-and-out.html#r-.rdata-1"><i class="fa fa-check"></i><b>1.2.1</b> R (.RData)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="data-in-and-out.html"><a href="data-in-and-out.html#csv-and-excel"><i class="fa fa-check"></i><b>1.2.2</b> CSV and Excel</a></li>
+<li class="chapter" data-level="1.2.3" data-path="data-in-and-out.html"><a href="data-in-and-out.html#spss-.sav"><i class="fa fa-check"></i><b>1.2.3</b> SPSS (.sav)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>2</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="tidy-data.html"><a href="tidy-data.html#define-tidy-data"><i class="fa fa-check"></i><b>2.1</b> Define Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cleaning-data.html"><a href="cleaning-data.html"><i class="fa fa-check"></i><b>3</b> Cleaning Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="cleaning-data.html"><a href="cleaning-data.html#changing-variable-type"><i class="fa fa-check"></i><b>3.1</b> Changing Variable Type</a></li>
+<li class="chapter" data-level="3.2" data-path="cleaning-data.html"><a href="cleaning-data.html#changing-a-whole-dataset-to-a-certain-class"><i class="fa fa-check"></i><b>3.2</b> Changing a whole dataset to a certain class</a></li>
+<li class="chapter" data-level="3.3" data-path="cleaning-data.html"><a href="cleaning-data.html#janitor-package"><i class="fa fa-check"></i><b>3.3</b> Janitor Package</a></li>
+<li class="chapter" data-level="3.4" data-path="cleaning-data.html"><a href="cleaning-data.html#washer-function-in-the-furniture-package"><i class="fa fa-check"></i><b>3.4</b> Washer function in the Furniture package</a></li>
+<li class="chapter" data-level="3.5" data-path="cleaning-data.html"><a href="cleaning-data.html#forcats-package"><i class="fa fa-check"></i><b>3.5</b> Forcats Package</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="cleaning-data.html"><a href="cleaning-data.html#relevel"><i class="fa fa-check"></i><b>3.5.1</b> Relevel</a></li>
+<li class="chapter" data-level="3.5.2" data-path="cleaning-data.html"><a href="cleaning-data.html#reorder"><i class="fa fa-check"></i><b>3.5.2</b> Reorder</a></li>
+<li class="chapter" data-level="3.5.3" data-path="cleaning-data.html"><a href="cleaning-data.html#lump"><i class="fa fa-check"></i><b>3.5.3</b> Lump</a></li>
+<li class="chapter" data-level="3.5.4" data-path="cleaning-data.html"><a href="cleaning-data.html#other-useful-functions-for-factors"><i class="fa fa-check"></i><b>3.5.4</b> Other Useful Functions for Factors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4</b> Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="tidyverse.html"><a href="tidyverse.html#pipes"><i class="fa fa-check"></i><b>4.1</b> Pipes</a></li>
+<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html#subset-data"><i class="fa fa-check"></i><b>4.2</b> Subset Data</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="tidyverse.html"><a href="tidyverse.html#select-function"><i class="fa fa-check"></i><b>4.2.1</b> Select function</a></li>
+<li class="chapter" data-level="4.2.2" data-path="tidyverse.html"><a href="tidyverse.html#starts_with-ends_with-contains"><i class="fa fa-check"></i><b>4.2.2</b> starts_with(), ends_with(), contains()</a></li>
+<li class="chapter" data-level="4.2.3" data-path="tidyverse.html"><a href="tidyverse.html#filter-equalityinequality-andor-within"><i class="fa fa-check"></i><b>4.2.3</b> Filter, equality/inequality, and/or, within</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="tidyverse.html"><a href="tidyverse.html#group_by"><i class="fa fa-check"></i><b>4.3</b> Group_by</a></li>
+<li class="chapter" data-level="4.4" data-path="tidyverse.html"><a href="tidyverse.html#mutate"><i class="fa fa-check"></i><b>4.4</b> Mutate</a></li>
+<li class="chapter" data-level="4.5" data-path="tidyverse.html"><a href="tidyverse.html#case_when"><i class="fa fa-check"></i><b>4.5</b> Case_when</a></li>
+<li class="chapter" data-level="4.6" data-path="tidyverse.html"><a href="tidyverse.html#cut-intervals"><i class="fa fa-check"></i><b>4.6</b> Cut Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="joining-datasets.html"><a href="joining-datasets.html"><i class="fa fa-check"></i><b>5</b> Joining Datasets</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="joining-datasets.html"><a href="joining-datasets.html#types-of-joining"><i class="fa fa-check"></i><b>5.1</b> types of joining</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="changing-structure.html"><a href="changing-structure.html"><i class="fa fa-check"></i><b>6</b> Changing Structure</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="changing-structure.html"><a href="changing-structure.html#wide-vs.-long"><i class="fa fa-check"></i><b>6.1</b> Wide vs. Long</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="changing-structure.html"><a href="changing-structure.html#tidyrgather"><i class="fa fa-check"></i><b>6.1.1</b> <code>tidyr::gather()</code></a></li>
+<li class="chapter" data-level="6.1.2" data-path="changing-structure.html"><a href="changing-structure.html#tidyrspread"><i class="fa fa-check"></i><b>6.1.2</b> <code>tidyr::spread()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cleaning-data" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Cleaning Data</h1>
+<p>For examples, we are going to import some data from a <code>.csv</code> file.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cleaning-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="st">&quot;data_csv.csv&quot;</span>)</span></code></pre></div>
+<div id="changing-variable-type" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Changing Variable Type</h2>
+<p>Importing data into R can cause your variables to change types. For example, lets see what the race variable class is now that the file has been imported into R.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="cleaning-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span>Race)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>As you see, its a character. We want it to be labeled as a factor. We can do this by using the as.factor() function in baseR. Make sure you save it as another variable in your dataset. If you don’t assign it to another variable, it will only temporarily show your variable as a factor but not actually change it to a factor for later analyses.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="cleaning-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>RaceF <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>Race)</span>
+<span id="cb16-2"><a href="cleaning-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>SmokingF <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>smoking)</span></code></pre></div>
+<p>Now lets see what the class of our RaceF variable is.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="cleaning-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span>RaceF)</span></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<p>Please note- when importing from a SAV file, some factors may be “haven-labelled.” Use this technique to change haven-labelled variables into factors as well.</p>
+</div>
+<div id="changing-a-whole-dataset-to-a-certain-class" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Changing a whole dataset to a certain class</h2>
+<p>If you want your whole dataset to be a certain class, you can easily do that in R using map_df(). Let’s say we want the whole dataset to be numeric.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cleaning-data.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb19-2"><a href="cleaning-data.html#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="cleaning-data.html#cb19-3" aria-hidden="true" tabindex="-1"></a>data_num <span class="ot">&lt;-</span> <span class="fu">map_df</span>(data, as.numeric)</span>
+<span id="cb19-4"><a href="cleaning-data.html#cb19-4" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(data)</span></code></pre></div>
+<pre><code>## Rows: 100
+## Columns: 16
+## $ V1           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ ID           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ Educ         &lt;int&gt; 14, 15, 23, 14, 22, 15, 23, 21, 21, 20, 13, 12, 22, 12, 2…
+## $ Age          &lt;int&gt; 58, 32, 47, 35, 51, 73, 46, 66, 38, 53, 19, 52, 24, 69, 5…
+## $ Sex          &lt;chr&gt; &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male…
+## $ Race         &lt;chr&gt; &quot;other&quot;, &quot;black&quot;, &quot;other&quot;, &quot;other&quot;, &quot;white&quot;, &quot;white&quot;, &quot;la…
+## $ Married      &lt;int&gt; 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, …
+## $ Income_1     &lt;int&gt; 42504, 45341, 69261, 41654, 66149, 46009, 68791, 62362, 6…
+## $ INCOME_2     &lt;int&gt; 56418, 59810, 92139, 56264, 88635, 59918, 91662, 83720, 8…
+## $ Depression_1 &lt;int&gt; 23, 20, 16, 14, 10, 14, 13, 6, 20, 11, 24, 21, 12, 10, 10…
+## $ Depression_2 &lt;int&gt; 26, 25, 20, 19, 13, 17, 17, 5, 26, 13, 28, 24, 14, 12, 12…
+## $ Anx_1        &lt;int&gt; 21, 20, 15, 15, 8, 14, 16, 5, 17, 11, 26, 23, 12, 10, 12,…
+## $ Anx_2        &lt;int&gt; 22, 23, 19, 10, 7, 16, 17, 4, 19, 10, 25, 22, 9, 12, 12, …
+## $ smoking      &lt;chr&gt; &quot;Non-smoker&quot;, &quot;Smoker&quot;, &quot;Smoker&quot;, &quot;99&quot;, &quot;Non-smoker&quot;, &quot;No…
+## $ RaceF        &lt;fct&gt; other, black, other, other, white, white, latinx, white, …
+## $ SmokingF     &lt;fct&gt; Non-smoker, Smoker, Smoker, 99, Non-smoker, Non-smoker, N…</code></pre>
+<p>As you can see, the character and factor variables that do not contain numbers are unable to be numeric. We will go over how to change that later. You can also change the whole dataset to be factors using the same code, but changing as.numeric to as.factor.</p>
+</div>
+<div id="janitor-package" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Janitor Package</h2>
+<p>The janitor package has useful functions that make it easy to clean your dataset. Use the clean_names() function to make variable names consistent.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="cleaning-data.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb21-2"><a href="cleaning-data.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="cleaning-data.html#cb21-3" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(data)</span>
+<span id="cb21-4"><a href="cleaning-data.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="cleaning-data.html#cb21-5" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(clean_df)</span></code></pre></div>
+<pre><code>## Rows: 100
+## Columns: 16
+## $ v1           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ id           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ educ         &lt;int&gt; 14, 15, 23, 14, 22, 15, 23, 21, 21, 20, 13, 12, 22, 12, 2…
+## $ age          &lt;int&gt; 58, 32, 47, 35, 51, 73, 46, 66, 38, 53, 19, 52, 24, 69, 5…
+## $ sex          &lt;chr&gt; &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male…
+## $ race         &lt;chr&gt; &quot;other&quot;, &quot;black&quot;, &quot;other&quot;, &quot;other&quot;, &quot;white&quot;, &quot;white&quot;, &quot;la…
+## $ married      &lt;int&gt; 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, …
+## $ income_1     &lt;int&gt; 42504, 45341, 69261, 41654, 66149, 46009, 68791, 62362, 6…
+## $ income_2     &lt;int&gt; 56418, 59810, 92139, 56264, 88635, 59918, 91662, 83720, 8…
+## $ depression_1 &lt;int&gt; 23, 20, 16, 14, 10, 14, 13, 6, 20, 11, 24, 21, 12, 10, 10…
+## $ depression_2 &lt;int&gt; 26, 25, 20, 19, 13, 17, 17, 5, 26, 13, 28, 24, 14, 12, 12…
+## $ anx_1        &lt;int&gt; 21, 20, 15, 15, 8, 14, 16, 5, 17, 11, 26, 23, 12, 10, 12,…
+## $ anx_2        &lt;int&gt; 22, 23, 19, 10, 7, 16, 17, 4, 19, 10, 25, 22, 9, 12, 12, …
+## $ smoking      &lt;chr&gt; &quot;Non-smoker&quot;, &quot;Smoker&quot;, &quot;Smoker&quot;, &quot;99&quot;, &quot;Non-smoker&quot;, &quot;No…
+## $ race_f       &lt;fct&gt; other, black, other, other, white, white, latinx, white, …
+## $ smoking_f    &lt;fct&gt; Non-smoker, Smoker, Smoker, 99, Non-smoker, Non-smoker, N…</code></pre>
+<p>Now, all of our variables are lowercase and consistent.</p>
+<p>You can also remove columns and/or rows that are completely missing. We do not have any missing rows or columns in our real dataset, so we will make one up to show you how it works.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="cleaning-data.html#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">3</span>),</span>
+<span id="cb23-2"><a href="cleaning-data.html#cb23-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var2 =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;y&quot;</span>),</span>
+<span id="cb23-3"><a href="cleaning-data.html#cb23-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var3 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
+<span id="cb23-4"><a href="cleaning-data.html#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="cleaning-data.html#cb23-5" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>##   var1 var2 var3
+## 1    1    a   NA
+## 2   NA &lt;NA&gt;   NA
+## 3    6    c   NA
+## 4    8    s   NA
+## 5    3    y   NA</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="cleaning-data.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty</span>(df, <span class="st">&quot;rows&quot;</span>)</span></code></pre></div>
+<pre><code>##   var1 var2 var3
+## 1    1    a   NA
+## 3    6    c   NA
+## 4    8    s   NA
+## 5    3    y   NA</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="cleaning-data.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty</span>(df, <span class="st">&quot;cols&quot;</span>)</span></code></pre></div>
+<pre><code>##   var1 var2
+## 1    1    a
+## 2   NA &lt;NA&gt;
+## 3    6    c
+## 4    8    s
+## 5    3    y</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="cleaning-data.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty</span>(df, <span class="fu">c</span>(<span class="st">&quot;rows&quot;</span>, <span class="st">&quot;cols&quot;</span>))</span></code></pre></div>
+<pre><code>##   var1 var2
+## 1    1    a
+## 3    6    c
+## 4    8    s
+## 5    3    y</code></pre>
+</div>
+<div id="washer-function-in-the-furniture-package" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Washer function in the Furniture package</h2>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="cleaning-data.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)</span>
+<span id="cb31-2"><a href="cleaning-data.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="cleaning-data.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">washer</span>(clean_df, <span class="dv">99</span>, <span class="at">value =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<pre><code>##      v1  id educ age    sex   race married income_1 income_2 depression_1
+## 1     1   1   14  58 female  other       0    42504    56418           23
+## 2     2   2   15  32   male  black       0    45341    59810           20
+## 3     3   3   23  47   male  other       0    69261    92139           16
+## 4     4   4   14  35 female  other       1    41654    56264           14
+## 5     5   5   22  51   male  white       0    66149    88635           10
+## 6     6   6   15  73   male  white       1    46009    59918           14
+## 7     7   7   23  46   male latinx       1    68791    91662           13
+## 8     8   8   21  66 female  white       1    62362    83720            6
+## 9     9   9   21  38 female  other       0    62716    84363           20
+## 10   10  10   20  53 female  white       1    60309    80255           11
+## 11   11  11   13  19   male latinx       0    38609    51231           24
+## 12   12  12   12  52   male latinx       0    35765    48350           21
+## 13   13  13   22  24   male latinx       0    65359    88375           12
+## 14   14  14   12  69   male latinx       1    35638    47970           10
+## 15   15  15   22  57 female latinx       1    66286    87292           10
+## 16   16  16   10  30   male  black       1    29329    39557            4
+## 17   17  17   22  36 female latinx       1    65930    87958           16
+## 18   18  18   10  45   male  black       0    30170    40493           17
+## 19   19  19   12  63 female latinx       1    36605    48624           17
+## 20   20  20   21  56 female  black       0    62751    84363            5
+## 21   21  21   21  61   male  black       0    63165    84272           16
+## 22   22  22   11  44   male  other       0    33429    43882            4
+## 23   23  23   23  49 female latinx       0    68705    91403           13
+## 24   24  24   19  75 female  other       1    57754    76665           17
+## 25   25  25   24  32 female  white       0    71587    96584            5
+## 26   26  26   25  44   male  white       0    75071    99362           10
+## 27   27  27   11  32 female latinx       1    31930    43994           25
+## 28   28  28   22  59 female  white       1    65415    88285           10
+## 29   29  29   17  59 female latinx       1    51424    67933            9
+## 30   30  30   11  65   male latinx       1    33568    44797           14
+## 31   31  31   12  32 female  black       0    35574    48605           20
+## 32   32  32   16  32 female  other       1    48240    64209           20
+## 33   33  33   17  41   male  white       0    51136    67940           10
+## 34   34  34   15  32   male latinx       1    45351    59612           10
+## 35   35  35   11  21 female latinx       1    33135    43671            7
+## 36   36  36   18  58   male  black       1    53859    71889           17
+## 37   37  37   25  49 female  white       0    74525   100518            5
+## 38   38  38   25  62   male  white       0    75694    99834           18
+## 39   39  39   23  53   male  white       0    69101    90538           24
+## 40   40  40   21  59 female latinx       0    63855    84479           18
+## 41   41  41   24  41 female  white       0    71409    96501           25
+## 42   42  42   21  48   male  white       0    63792    84229           22
+## 43   43  43   25  49 female  black       0    74573    99489           16
+## 44   44  44   21  33 female  black       0    63295    84883            8
+## 45   45  45   25  72 female  white       1    75327   100158            9
+## 46   46  46   18  36   male  white       1    53873    71979           13
+## 47   47  47   20  40   male  black       1    59903    80448           21
+## 48   48  48   13  66 female  white       0    38260    52552           17
+## 49   49  49   22  18 female latinx       1    66271    88650            4
+## 50   50  50   19  58 female  white       1    58129    76397            8
+## 51   51  51   22  60   male  other       0    66355    87677            7
+## 52   52  52   10  44   male latinx       1    29774    40207           12
+## 53   53  53   12  62 female  other       0    35938    47879           22
+## 54   54  54   25  18   male  black       0    75190    99326           12
+## 55   55  55   22  68 female latinx       1    66803    88144            9
+## 56   56  56   20  64   male  other       0    59826    80546           22
+## 57   57  57   16  58   male latinx       0    49091    64723           11
+## 58   58  58   21  64   male  white       1    63523    85150           22
+## 59   59  59   23  43 female  white       1    68882    92108           13
+## 60   60  60   22  25 female  black       0    65956    87883           18
+## 61   61  61   18  31   male  white       1    53753    71406           17
+## 62   62  62   21  37   male latinx       0    62879    83837           16
+## 63   63  63   15  58 female  white       0    45401    60718           17
+## 64   64  64   25  21 female  black       0    75987   100466            4
+## 65   65  65   19  55   male  black       0    56901    76335           11
+## 66   66  66   15  25 female  black       0    44471    60007            6
+## 67   67  67   18  74   male  white       1    54473    72169           21
+## 68   68  68   20  62 female  white       0    59855    79460           11
+## 69   69  69   18  48 female  black       0    53116    72916            6
+## 70   70  70   25  39 female  white       0    75464   100441            7
+## 71   71  71   10  74   male  white       0    30826    39582           15
+## 72   72  72   21  52 female  black       1    62825    84191           25
+## 73   73  73   23  32   male latinx       0    69583    92592           10
+## 74   74  74   19  34 female latinx       1    57118    76277           18
+## 75   75  75   24  56 female  other       1    72423    95471           16
+## 76   76  76   25  58   male  white       0    75182    99402           18
+## 77   77  77   17  50 female  white       0    51535    67826           23
+## 78   78  78   21  73   male latinx       0    62737    83835           11
+## 79   79  79   21  64   male latinx       1    63300    83430           13
+## 80   80  80   11  74 female  black       0    33615    43182            5
+## 81   81  81   15  67   male  other       1    44894    59759           11
+## 82   82  82   25  18 female latinx       1    75423   100193            5
+## 83   83  83   22  41 female  other       0    65429    87471           16
+## 84   84  84   23  46 female  white       0    69259    92073           10
+## 85   85  85   11  57   male latinx       0    32794    44572           19
+## 86   86  86   16  56 female  black       0    49602    64341           21
+## 87   87  87   17  65 female  other       0    51796    66755            7
+## 88   88  88   18  32 female  white       0    54010    72606            8
+## 89   89  89   22  40   male latinx       1    64967    88133           15
+## 90   90  90   23  28   male  white       1    69913    92558           18
+## 91   91  91   11  44 female  white       0    33500    45197            5
+## 92   92  92   11  42 female latinx       0    33100    44187            4
+## 93   93  93   20  27 female latinx       1    59888    80343           13
+## 94   94  94   15  68   male latinx       0    44938    60644           23
+## 95   95  95   20  23   male latinx       1    59629    79479           25
+## 96   96  96   19  60 female  white       1    56833    75545           20
+## 97   97  97   17  59   male  black       1    50817    68483            6
+## 98   98  98   19  56   male latinx       0    57278    76339            8
+## 99   NA  NA   21  53   male latinx       0    62614    84328           11
+## 100 100 100   22  49 female  white       1    66983    87602            7
+##     depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1             26    21    22 Non-smoker  other Non-smoker
+## 2             25    20    23     Smoker  black     Smoker
+## 3             20    15    19     Smoker  other     Smoker
+## 4             19    15    10       &lt;NA&gt;  other       &lt;NA&gt;
+## 5             13     8     7 Non-smoker  white Non-smoker
+## 6             17    14    16 Non-smoker  white Non-smoker
+## 7             17    16    17 Non-smoker latinx Non-smoker
+## 8              5     5     4 Non-smoker  white Non-smoker
+## 9             26    17    19 Non-smoker  other Non-smoker
+## 10            13    11    10     Smoker  white     Smoker
+## 11            28    26    25       &lt;NA&gt; latinx       &lt;NA&gt;
+## 12            24    23    22 Non-smoker latinx Non-smoker
+## 13            14    12     9 Non-smoker latinx Non-smoker
+## 14            12    10    12 Non-smoker latinx Non-smoker
+## 15            12    12    12 Non-smoker latinx Non-smoker
+## 16             7     5     7 Non-smoker  black Non-smoker
+## 17            19    17    18 Non-smoker latinx Non-smoker
+## 18            22    18    16 Non-smoker  black Non-smoker
+## 19            21    16    17 Non-smoker latinx Non-smoker
+## 20             7     3     3 Non-smoker  black Non-smoker
+## 21            17    16    16 Non-smoker  black Non-smoker
+## 22             5     3     7 Non-smoker  other Non-smoker
+## 23            17    10    10       &lt;NA&gt; latinx       &lt;NA&gt;
+## 24            19    20    20     Smoker  other     Smoker
+## 25             6     4     2       &lt;NA&gt;  white       &lt;NA&gt;
+## 26            13     9    10       &lt;NA&gt;  white       &lt;NA&gt;
+## 27            31    25    27       &lt;NA&gt; latinx       &lt;NA&gt;
+## 28            12     8    10 Non-smoker  white Non-smoker
+## 29            12     9    10 Non-smoker latinx Non-smoker
+## 30            17    13    12       &lt;NA&gt; latinx       &lt;NA&gt;
+## 31            24    21    23 Non-smoker  black Non-smoker
+## 32            24    25    25 Non-smoker  other Non-smoker
+## 33            13    13    11     Smoker  white     Smoker
+## 34            11     8     6     Smoker latinx     Smoker
+## 35             8     4     7 Non-smoker latinx Non-smoker
+## 36            19    17    17     Smoker  black     Smoker
+## 37             5     3     7     Smoker  white     Smoker
+## 38            23    20    22 Non-smoker  white Non-smoker
+## 39            29    25    24 Non-smoker  white Non-smoker
+## 40            23    14    17     Smoker latinx     Smoker
+## 41            31    26    21 Non-smoker  white Non-smoker
+## 42            25    22    25 Non-smoker  white Non-smoker
+## 43            18    15    16 Non-smoker  black Non-smoker
+## 44            10     7     7 Non-smoker  black Non-smoker
+## 45            11     9     8       &lt;NA&gt;  white       &lt;NA&gt;
+## 46            16    14    13 Non-smoker  white Non-smoker
+## 47            26    19    15 Non-smoker  black Non-smoker
+## 48            21    18    19 Non-smoker  white Non-smoker
+## 49             6     5     2 Non-smoker latinx Non-smoker
+## 50             8     3     1       &lt;NA&gt;  white       &lt;NA&gt;
+## 51             8    -1     4 Non-smoker  other Non-smoker
+## 52            14    10     8       &lt;NA&gt; latinx       &lt;NA&gt;
+## 53            25    18    16 Non-smoker  other Non-smoker
+## 54            14    10     9 Non-smoker  black Non-smoker
+## 55            10     8    14 Non-smoker latinx Non-smoker
+## 56            25    25    23       &lt;NA&gt;  other       &lt;NA&gt;
+## 57            13    11    13 Non-smoker latinx Non-smoker
+## 58            26    20    19       &lt;NA&gt;  white       &lt;NA&gt;
+## 59            15    11    13       &lt;NA&gt;  white       &lt;NA&gt;
+## 60            21    16    16 Non-smoker  black Non-smoker
+## 61            19    15    15       &lt;NA&gt;  white       &lt;NA&gt;
+## 62            20    16    18 Non-smoker latinx Non-smoker
+## 63            21    18    18 Non-smoker  white Non-smoker
+## 64             5     1     2 Non-smoker  black Non-smoker
+## 65            16    11    13 Non-smoker  black Non-smoker
+## 66             6    10     7 Non-smoker  black Non-smoker
+## 67            26    19    17 Non-smoker  white Non-smoker
+## 68            13    11     9 Non-smoker  white Non-smoker
+## 69             7     5     4 Non-smoker  black Non-smoker
+## 70             9     7     7 Non-smoker  white Non-smoker
+## 71            18    16    14       &lt;NA&gt;  white       &lt;NA&gt;
+## 72            30    25    24 Non-smoker  black Non-smoker
+## 73            13     8     5 Non-smoker latinx Non-smoker
+## 74            21    16    18 Non-smoker latinx Non-smoker
+## 75            19    17    16 Non-smoker  other Non-smoker
+## 76            21    20    20 Non-smoker  white Non-smoker
+## 77            27    22    24 Non-smoker  white Non-smoker
+## 78            13     6     6 Non-smoker latinx Non-smoker
+## 79            17    14    12 Non-smoker latinx Non-smoker
+## 80             4     6     3 Non-smoker  black Non-smoker
+## 81            13    12    12 Non-smoker  other Non-smoker
+## 82             5     6     4 Non-smoker latinx Non-smoker
+## 83            20    15    16     Smoker  other     Smoker
+## 84            12     7     3       &lt;NA&gt;  white       &lt;NA&gt;
+## 85            22    18    18 Non-smoker latinx Non-smoker
+## 86            25    23    25 Non-smoker  black Non-smoker
+## 87             8     8     9 Non-smoker  other Non-smoker
+## 88             9     7     3 Non-smoker  white Non-smoker
+## 89            20    15    14 Non-smoker latinx Non-smoker
+## 90            21    14    12     Smoker  white     Smoker
+## 91             8     7    10     Smoker  white     Smoker
+## 92             5     3     1 Non-smoker latinx Non-smoker
+## 93            15    11    10 Non-smoker latinx Non-smoker
+## 94            26    24    27 Non-smoker latinx Non-smoker
+## 95            29    23    23     Smoker latinx     Smoker
+## 96            25    21    20 Non-smoker  white Non-smoker
+## 97             8     7     8 Non-smoker  black Non-smoker
+## 98            12     7     8 Non-smoker latinx Non-smoker
+## 99            11    11    13     Smoker latinx     Smoker
+## 100           10     7     9 Non-smoker  white Non-smoker</code></pre>
+</div>
+<div id="forcats-package" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Forcats Package</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="cleaning-data.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats) <span class="co"># forcats is also in tidyverse so if you downloaded tidyverse you don&#39;t need to download this as well</span></span></code></pre></div>
+<div id="relevel" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Relevel</h3>
+<p>You can manually reorder factor levels</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="cleaning-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_relevel</span>(clean_df<span class="sc">$</span>race_f, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;latinx&quot;</span>, <span class="st">&quot;other&quot;</span>)</span></code></pre></div>
+<pre><code>##   [1] other  black  other  other  white  white  latinx white  other  white 
+##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
+##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
+##  [31] black  other  white  latinx latinx black  white  white  white  latinx
+##  [41] white  white  black  black  white  white  black  white  latinx white 
+##  [51] other  latinx other  black  latinx other  latinx white  white  black 
+##  [61] white  latinx white  black  black  black  white  white  black  white 
+##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
+##  [81] other  latinx other  white  latinx black  other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
+## Levels: white black latinx other</code></pre>
+</div>
+<div id="reorder" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Reorder</h3>
+<p>Reoder a factor by its levels’ frequency</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="cleaning-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_infreq</span>(clean_df<span class="sc">$</span>race_f)</span></code></pre></div>
+<pre><code>##   [1] other  black  other  other  white  white  latinx white  other  white 
+##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
+##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
+##  [31] black  other  white  latinx latinx black  white  white  white  latinx
+##  [41] white  white  black  black  white  white  black  white  latinx white 
+##  [51] other  latinx other  black  latinx other  latinx white  white  black 
+##  [61] white  latinx white  black  black  black  white  white  black  white 
+##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
+##  [81] other  latinx other  white  latinx black  other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
+## Levels: latinx white black other</code></pre>
+<p>Reorder a factor by a numeric variable</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="cleaning-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_reorder</span>(clean_df<span class="sc">$</span>race_f, clean_df<span class="sc">$</span>income_1)</span></code></pre></div>
+<pre><code>##   [1] other  black  other  other  white  white  latinx white  other  white 
+##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
+##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
+##  [31] black  other  white  latinx latinx black  white  white  white  latinx
+##  [41] white  white  black  black  white  white  black  white  latinx white 
+##  [51] other  latinx other  black  latinx other  latinx white  white  black 
+##  [61] white  latinx white  black  black  black  white  white  black  white 
+##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
+##  [81] other  latinx other  white  latinx black  other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
+## Levels: other black latinx white</code></pre>
+</div>
+<div id="lump" class="section level3" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Lump</h3>
+<p>When you have a factor with too many levels, you can lump all of the infrequent ones into one factor, “other.” You can specify how many levels you want to include. the argument “n” is the number of levels you want to keep, besides the “other” category that will be made from the lump function. You can also include the argument other_level = "" if you would like to change the name from other to something more specific.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="cleaning-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_lump</span>(clean_df<span class="sc">$</span>race_f, <span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##   [1] Other  Other  Other  Other  white  white  latinx white  Other  white 
+##  [11] latinx latinx latinx latinx latinx Other  latinx Other  latinx Other 
+##  [21] Other  Other  latinx Other  white  white  latinx white  latinx latinx
+##  [31] Other  Other  white  latinx latinx Other  white  white  white  latinx
+##  [41] white  white  Other  Other  white  white  Other  white  latinx white 
+##  [51] Other  latinx Other  Other  latinx Other  latinx white  white  Other 
+##  [61] white  latinx white  Other  Other  Other  white  white  Other  white 
+##  [71] white  Other  latinx latinx Other  white  white  latinx latinx Other 
+##  [81] Other  latinx Other  white  latinx Other  Other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  Other  latinx latinx white 
+## Levels: latinx white Other</code></pre>
+<p>In this example, we previously had four levels of the race variable: white, black, latinx, and other. When we specified n = 2, we lumped the other and black categories (the most infrequent two) into one “Other” category. It kept our two most frequent categories: white and latinx.</p>
+</div>
+<div id="other-useful-functions-for-factors" class="section level3" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Other Useful Functions for Factors</h3>
+<div class="figure">
+<img src="/Users/dculi/Box/R%20Course/forcatscheat.png" alt="" />
+<p class="caption">Forcats cheat sheet</p>
+</div>
+<hr />
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tidy-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
