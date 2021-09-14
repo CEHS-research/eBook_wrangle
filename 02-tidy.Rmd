@@ -9,7 +9,7 @@ Tidying up data is often where most of the data work happens. It is known by man
 
 --------------------------------------
 
-# Cleaning Data
+## Tidying (Cleaning) Data
 
 For examples, we are going to import some data from a `.csv` file.
 
@@ -93,10 +93,13 @@ remove_empty(df, c("rows", "cols"))
 
 ## Washer function in the Furniture package
 
+Note the use of `head()` to only print 6 rows (instead of all of them).
+
 ```{r, message=FALSE, warning=FALSE}
 library(furniture)
 
-washer(clean_df, 99, value = NA)
+washer(clean_df, 99, value = NA) %>% 
+  head()
 ```
 
 ## Forcats Package
@@ -116,11 +119,10 @@ fct_relevel(clean_df$race_f, "white", "black", "latinx", "other")
 
 ### Reorder
 
-Reoder a factor by its levels' frequency
+Reorder a factor by its levels' frequency
 
 ```{r}
 fct_infreq(clean_df$race_f)
-
 ```
 
 Reorder a factor by a numeric variable
@@ -154,16 +156,18 @@ In this example, we previously had four levels of the race variable: white, blac
 
 --------------------------------------
 
-# Tidyverse
+## Tidyverse
 
-## Pipes
+### Pipes
 
+```
 me %>% 
   wake_up("8:00am") %>% 
   exercise(30, units = "minutes") %>% 
   shower(15, units = "minutes") %>% 
   eat_breakfast("toast") %>% 
   go_to_work("basement")
+```
 
 Piping takes what is on the left-hand side and puts it in the right hand side's function. If you look at the code below, you'll see how code looks without a pipe.
 
@@ -181,32 +185,32 @@ clean_df %>%
 
 It may not seem to make the code more readable, but the more complex your code is the easier it will be to read it using pipes. It also allows you to connect multiple lines of code without having to overwrite your dataset multiple times. As we go through more data cleaning and wrangling, you'll begin to see how piping makes a difference when coding.
 
-## Subset Data
+### Subset Data
 
-### Select function
+#### Select function
 
 The select function allows you to pull specific information out of our dataset. You can do this using baseR commands, or with the select function from tidyverse.
 
 ```{r}
-clean_df[, c("id", "educ", "age")]
-
-clean_df[, c(1:3)]
-
+head(clean_df[, c("id", "educ", "age")])
+head(clean_df[, c(1:3)])
 ```
 
 
 ```{r}
 clean_df %>% 
-  select(id, educ, age)
+  select(id, educ, age) %>% 
+  head()
 
 clean_df %>% 
-  select(1:3)
+  select(1:3) %>% 
+  head()
 ```
 
 Each code chunk does the same thing. The first two, using [, is the "base R" way of selecting variables. The last two, using the pipe, is the tidyverse way. Both work great so the choice is yours.
 
 
-### starts_with(), ends_with(), contains()
+#### starts_with(), ends_with(), contains()
 
 When you use tidyverse, you can pull variables out that have common features. Here are a few examples. Note that we use the select function as well as another function to pull out information. 
 
@@ -214,23 +218,23 @@ This line of code pulls out the variables that start with the word "income".
 
 ```{r}
 clean_df %>% 
-  select(starts_with("income"))
+  select(starts_with("income")) %>% 
+  head()
 ```
 This code allows you to select all of the variables in your dataset that end with _1 and _2. 
 
 ```{r}
-
 clean_df %>% 
-  select(ends_with(c("_1", "_2")))
+  select(ends_with(c("_1", "_2"))) %>% 
+  head()
 ```
 
 With this code you can pull out any variables that contain "anx" anywhere in the variable name.
 
 ```{r}
-
 clean_df %>% 
-  select(contains("anx"))
-
+  select(contains("anx")) %>% 
+  head()
 ```
 
 ### Filter, equality/inequality, and/or, within
@@ -239,34 +243,31 @@ clean_df %>%
 clean_df[clean_df$anx_1 > 20,]
 
 clean_df %>% 
-  filter(anx_1 > 20)
-
+  filter(anx_1 > 20) %>% 
+  head()
 ```
 
 
 ```{r}
-
 clean_df %>% 
-  filter(sex == "female")
-
+  filter(sex == "female") %>% 
+  head()
 ```
 
 ```{r}
-
 clean_df %>% 
-  filter(sex == "female" & race == "black")
-
+  filter(sex == "female" & race == "black") %>% 
+  head()
 ```
 
 ```{r}
-
 clean_df %>% 
-  filter(sex == "female" | educ == 20)
-
+  filter(sex == "female" | educ == 20) %>% 
+  head()
 ```
 
 
-## Group_by
+### Group_by
 
 The group_by() function allows for us to group our data by a specific variable and compare groups with descriptive statistics. 
 
@@ -281,7 +282,7 @@ clean_df %>%
 
 This example groups the dataset by race_f and summarizes it by the number per race (the n() argument), and provides the mean (mean()) and standard deviation (sd()) for depression scores by race. 
 
-## Mutate
+### Mutate
 
 Anytime you see mutate() it means you are adding a new variable or modifying an existing one.  For example, lets take a look at what class our sex variable is.
 
@@ -302,7 +303,7 @@ class(clean_df$sex_f)
 ```
 
 
-## Case_when
+### Case_when
 
 When you want to modify variables based on various possible conditions, you can use the case_when() function. For example, when a categorical variable is dummy-coded to be 0,1,2.. you can change it to have actual name labels. In this example, our married variable i supposed to be factor of 0 = not married and 1 = married. Lets look at our married variable before we use mutate and case_when.
 

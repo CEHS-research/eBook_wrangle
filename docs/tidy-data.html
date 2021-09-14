@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Tidy Data | Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling</title>
   <meta name="description" content="Data Management: Importing, Subsetting, Creating Variables, and Saving." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Tidy Data | Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling" />
   <meta property="og:type" content="book" />
@@ -31,9 +31,10 @@
   
   
 <link rel="prev" href="data-in-and-out.html"/>
-<link rel="next" href="cleaning-data.html"/>
+<link rel="next" href="joining-datasets.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -168,45 +168,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>2</b> Tidy Data</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="tidy-data.html"><a href="tidy-data.html#define-tidy-data"><i class="fa fa-check"></i><b>2.1</b> Define Tidy Data</a></li>
+<li class="chapter" data-level="2.2" data-path="tidy-data.html"><a href="tidy-data.html#tidying-cleaning-data"><i class="fa fa-check"></i><b>2.2</b> Tidying (Cleaning) Data</a></li>
+<li class="chapter" data-level="2.3" data-path="tidy-data.html"><a href="tidy-data.html#changing-variable-type"><i class="fa fa-check"></i><b>2.3</b> Changing Variable Type</a></li>
+<li class="chapter" data-level="2.4" data-path="tidy-data.html"><a href="tidy-data.html#changing-a-whole-dataset-to-a-certain-class"><i class="fa fa-check"></i><b>2.4</b> Changing a whole dataset to a certain class</a></li>
+<li class="chapter" data-level="2.5" data-path="tidy-data.html"><a href="tidy-data.html#janitor-package"><i class="fa fa-check"></i><b>2.5</b> Janitor Package</a></li>
+<li class="chapter" data-level="2.6" data-path="tidy-data.html"><a href="tidy-data.html#washer-function-in-the-furniture-package"><i class="fa fa-check"></i><b>2.6</b> Washer function in the Furniture package</a></li>
+<li class="chapter" data-level="2.7" data-path="tidy-data.html"><a href="tidy-data.html#forcats-package"><i class="fa fa-check"></i><b>2.7</b> Forcats Package</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="tidy-data.html"><a href="tidy-data.html#relevel"><i class="fa fa-check"></i><b>2.7.1</b> Relevel</a></li>
+<li class="chapter" data-level="2.7.2" data-path="tidy-data.html"><a href="tidy-data.html#reorder"><i class="fa fa-check"></i><b>2.7.2</b> Reorder</a></li>
+<li class="chapter" data-level="2.7.3" data-path="tidy-data.html"><a href="tidy-data.html#lump"><i class="fa fa-check"></i><b>2.7.3</b> Lump</a></li>
+<li class="chapter" data-level="2.7.4" data-path="tidy-data.html"><a href="tidy-data.html#other-useful-functions-for-factors"><i class="fa fa-check"></i><b>2.7.4</b> Other Useful Functions for Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cleaning-data.html"><a href="cleaning-data.html"><i class="fa fa-check"></i><b>3</b> Cleaning Data</a>
+<li class="chapter" data-level="2.8" data-path="tidy-data.html"><a href="tidy-data.html#tidyverse"><i class="fa fa-check"></i><b>2.8</b> Tidyverse</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="cleaning-data.html"><a href="cleaning-data.html#changing-variable-type"><i class="fa fa-check"></i><b>3.1</b> Changing Variable Type</a></li>
-<li class="chapter" data-level="3.2" data-path="cleaning-data.html"><a href="cleaning-data.html#changing-a-whole-dataset-to-a-certain-class"><i class="fa fa-check"></i><b>3.2</b> Changing a whole dataset to a certain class</a></li>
-<li class="chapter" data-level="3.3" data-path="cleaning-data.html"><a href="cleaning-data.html#janitor-package"><i class="fa fa-check"></i><b>3.3</b> Janitor Package</a></li>
-<li class="chapter" data-level="3.4" data-path="cleaning-data.html"><a href="cleaning-data.html#washer-function-in-the-furniture-package"><i class="fa fa-check"></i><b>3.4</b> Washer function in the Furniture package</a></li>
-<li class="chapter" data-level="3.5" data-path="cleaning-data.html"><a href="cleaning-data.html#forcats-package"><i class="fa fa-check"></i><b>3.5</b> Forcats Package</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="cleaning-data.html"><a href="cleaning-data.html#relevel"><i class="fa fa-check"></i><b>3.5.1</b> Relevel</a></li>
-<li class="chapter" data-level="3.5.2" data-path="cleaning-data.html"><a href="cleaning-data.html#reorder"><i class="fa fa-check"></i><b>3.5.2</b> Reorder</a></li>
-<li class="chapter" data-level="3.5.3" data-path="cleaning-data.html"><a href="cleaning-data.html#lump"><i class="fa fa-check"></i><b>3.5.3</b> Lump</a></li>
-<li class="chapter" data-level="3.5.4" data-path="cleaning-data.html"><a href="cleaning-data.html#other-useful-functions-for-factors"><i class="fa fa-check"></i><b>3.5.4</b> Other Useful Functions for Factors</a></li>
+<li class="chapter" data-level="2.8.1" data-path="tidy-data.html"><a href="tidy-data.html#pipes"><i class="fa fa-check"></i><b>2.8.1</b> Pipes</a></li>
+<li class="chapter" data-level="2.8.2" data-path="tidy-data.html"><a href="tidy-data.html#subset-data"><i class="fa fa-check"></i><b>2.8.2</b> Subset Data</a></li>
+<li class="chapter" data-level="2.8.3" data-path="tidy-data.html"><a href="tidy-data.html#filter-equalityinequality-andor-within"><i class="fa fa-check"></i><b>2.8.3</b> Filter, equality/inequality, and/or, within</a></li>
+<li class="chapter" data-level="2.8.4" data-path="tidy-data.html"><a href="tidy-data.html#group_by"><i class="fa fa-check"></i><b>2.8.4</b> Group_by</a></li>
+<li class="chapter" data-level="2.8.5" data-path="tidy-data.html"><a href="tidy-data.html#mutate"><i class="fa fa-check"></i><b>2.8.5</b> Mutate</a></li>
+<li class="chapter" data-level="2.8.6" data-path="tidy-data.html"><a href="tidy-data.html#case_when"><i class="fa fa-check"></i><b>2.8.6</b> Case_when</a></li>
 </ul></li>
+<li class="chapter" data-level="2.9" data-path="tidy-data.html"><a href="tidy-data.html#cut-intervals"><i class="fa fa-check"></i><b>2.9</b> Cut Intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4</b> Tidyverse</a>
+<li class="chapter" data-level="3" data-path="joining-datasets.html"><a href="joining-datasets.html"><i class="fa fa-check"></i><b>3</b> Joining Datasets</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="tidyverse.html"><a href="tidyverse.html#pipes"><i class="fa fa-check"></i><b>4.1</b> Pipes</a></li>
-<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html#subset-data"><i class="fa fa-check"></i><b>4.2</b> Subset Data</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="tidyverse.html"><a href="tidyverse.html#select-function"><i class="fa fa-check"></i><b>4.2.1</b> Select function</a></li>
-<li class="chapter" data-level="4.2.2" data-path="tidyverse.html"><a href="tidyverse.html#starts_with-ends_with-contains"><i class="fa fa-check"></i><b>4.2.2</b> starts_with(), ends_with(), contains()</a></li>
-<li class="chapter" data-level="4.2.3" data-path="tidyverse.html"><a href="tidyverse.html#filter-equalityinequality-andor-within"><i class="fa fa-check"></i><b>4.2.3</b> Filter, equality/inequality, and/or, within</a></li>
+<li class="chapter" data-level="3.1" data-path="joining-datasets.html"><a href="joining-datasets.html#types-of-joining"><i class="fa fa-check"></i><b>3.1</b> types of joining</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="tidyverse.html"><a href="tidyverse.html#group_by"><i class="fa fa-check"></i><b>4.3</b> Group_by</a></li>
-<li class="chapter" data-level="4.4" data-path="tidyverse.html"><a href="tidyverse.html#mutate"><i class="fa fa-check"></i><b>4.4</b> Mutate</a></li>
-<li class="chapter" data-level="4.5" data-path="tidyverse.html"><a href="tidyverse.html#case_when"><i class="fa fa-check"></i><b>4.5</b> Case_when</a></li>
-<li class="chapter" data-level="4.6" data-path="tidyverse.html"><a href="tidyverse.html#cut-intervals"><i class="fa fa-check"></i><b>4.6</b> Cut Intervals</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="joining-datasets.html"><a href="joining-datasets.html"><i class="fa fa-check"></i><b>5</b> Joining Datasets</a>
+<li class="chapter" data-level="4" data-path="changing-structure.html"><a href="changing-structure.html"><i class="fa fa-check"></i><b>4</b> Changing Structure</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="joining-datasets.html"><a href="joining-datasets.html#types-of-joining"><i class="fa fa-check"></i><b>5.1</b> types of joining</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="changing-structure.html"><a href="changing-structure.html"><i class="fa fa-check"></i><b>6</b> Changing Structure</a>
+<li class="chapter" data-level="4.1" data-path="changing-structure.html"><a href="changing-structure.html#wide-vs.-long"><i class="fa fa-check"></i><b>4.1</b> Wide vs. Long</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="changing-structure.html"><a href="changing-structure.html#wide-vs.-long"><i class="fa fa-check"></i><b>6.1</b> Wide vs. Long</a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="changing-structure.html"><a href="changing-structure.html#tidyrgather"><i class="fa fa-check"></i><b>6.1.1</b> <code>tidyr::gather()</code></a></li>
-<li class="chapter" data-level="6.1.2" data-path="changing-structure.html"><a href="changing-structure.html#tidyrspread"><i class="fa fa-check"></i><b>6.1.2</b> <code>tidyr::spread()</code></a></li>
+<li class="chapter" data-level="4.1.1" data-path="changing-structure.html"><a href="changing-structure.html#tidyrgather"><i class="fa fa-check"></i><b>4.1.1</b> <code>tidyr::gather()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="changing-structure.html"><a href="changing-structure.html#tidyrspread"><i class="fa fa-check"></i><b>4.1.2</b> <code>tidyr::spread()</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -238,6 +232,519 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://vita.had.co.nz/papers/tidy-data.pdf">Tidy data</a> are discussed in many resources (e.g., <a href="https://r4ds.had.co.nz">R for Data Science</a>). “Tidy datasets are all alike but every messy dataset is messy in its own way. Tidy datasets provide a standardized way to link the structure of a dataset (its physical layout) with its semantics (its meaning). In this section, I’ll provide some standard vocabulary for describing the structure and semantics of a dataset, and then use those definitions to define tidy data,” (<a href="https://vita.had.co.nz/papers/tidy-data.pdf" class="uri">https://vita.had.co.nz/papers/tidy-data.pdf</a>).</p>
 <hr />
 </div>
+<div id="tidying-cleaning-data" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Tidying (Cleaning) Data</h2>
+<p>For examples, we are going to import some data from a <code>.csv</code> file.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tidy-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="st">&quot;data_csv.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="changing-variable-type" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Changing Variable Type</h2>
+<p>Importing data into R can cause your variables to change types. For example, lets see what the race variable class is now that the file has been imported into R.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tidy-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span>Race)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>As you see, its a character. We want it to be labeled as a factor. We can do this by using the as.factor() function in baseR. Make sure you save it as another variable in your dataset. If you don’t assign it to another variable, it will only temporarily show your variable as a factor but not actually change it to a factor for later analyses.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tidy-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>RaceF <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>Race)</span>
+<span id="cb16-2"><a href="tidy-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>SmokingF <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>smoking)</span></code></pre></div>
+<p>Now lets see what the class of our RaceF variable is.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="tidy-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span>RaceF)</span></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<p>Please note- when importing from a SAV file, some factors may be “haven-labelled.” Use this technique to change haven-labelled variables into factors as well.</p>
+</div>
+<div id="changing-a-whole-dataset-to-a-certain-class" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Changing a whole dataset to a certain class</h2>
+<p>If you want your whole dataset to be a certain class, you can easily do that in R using map_df(). Let’s say we want the whole dataset to be numeric.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="tidy-data.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb19-2"><a href="tidy-data.html#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="tidy-data.html#cb19-3" aria-hidden="true" tabindex="-1"></a>data_num <span class="ot">&lt;-</span> <span class="fu">map_df</span>(data, as.numeric)</span>
+<span id="cb19-4"><a href="tidy-data.html#cb19-4" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(data)</span></code></pre></div>
+<pre><code>## Rows: 100
+## Columns: 16
+## $ V1           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ ID           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ Educ         &lt;int&gt; 14, 15, 23, 14, 22, 15, 23, 21, 21, 20, 13, 12, 22, 12, 2…
+## $ Age          &lt;int&gt; 58, 32, 47, 35, 51, 73, 46, 66, 38, 53, 19, 52, 24, 69, 5…
+## $ Sex          &lt;chr&gt; &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male…
+## $ Race         &lt;chr&gt; &quot;other&quot;, &quot;black&quot;, &quot;other&quot;, &quot;other&quot;, &quot;white&quot;, &quot;white&quot;, &quot;la…
+## $ Married      &lt;int&gt; 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, …
+## $ Income_1     &lt;int&gt; 42504, 45341, 69261, 41654, 66149, 46009, 68791, 62362, 6…
+## $ INCOME_2     &lt;int&gt; 56418, 59810, 92139, 56264, 88635, 59918, 91662, 83720, 8…
+## $ Depression_1 &lt;int&gt; 23, 20, 16, 14, 10, 14, 13, 6, 20, 11, 24, 21, 12, 10, 10…
+## $ Depression_2 &lt;int&gt; 26, 25, 20, 19, 13, 17, 17, 5, 26, 13, 28, 24, 14, 12, 12…
+## $ Anx_1        &lt;int&gt; 21, 20, 15, 15, 8, 14, 16, 5, 17, 11, 26, 23, 12, 10, 12,…
+## $ Anx_2        &lt;int&gt; 22, 23, 19, 10, 7, 16, 17, 4, 19, 10, 25, 22, 9, 12, 12, …
+## $ smoking      &lt;chr&gt; &quot;Non-smoker&quot;, &quot;Smoker&quot;, &quot;Smoker&quot;, &quot;99&quot;, &quot;Non-smoker&quot;, &quot;No…
+## $ RaceF        &lt;fct&gt; other, black, other, other, white, white, latinx, white, …
+## $ SmokingF     &lt;fct&gt; Non-smoker, Smoker, Smoker, 99, Non-smoker, Non-smoker, N…</code></pre>
+<p>As you can see, the character and factor variables that do not contain numbers are unable to be numeric. We will go over how to change that later. You can also change the whole dataset to be factors using the same code, but changing as.numeric to as.factor.</p>
+</div>
+<div id="janitor-package" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Janitor Package</h2>
+<p>The janitor package has useful functions that make it easy to clean your dataset. Use the clean_names() function to make variable names consistent.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tidy-data.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb21-2"><a href="tidy-data.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="tidy-data.html#cb21-3" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(data)</span>
+<span id="cb21-4"><a href="tidy-data.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="tidy-data.html#cb21-5" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(clean_df)</span></code></pre></div>
+<pre><code>## Rows: 100
+## Columns: 16
+## $ v1           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ id           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ educ         &lt;int&gt; 14, 15, 23, 14, 22, 15, 23, 21, 21, 20, 13, 12, 22, 12, 2…
+## $ age          &lt;int&gt; 58, 32, 47, 35, 51, 73, 46, 66, 38, 53, 19, 52, 24, 69, 5…
+## $ sex          &lt;chr&gt; &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male…
+## $ race         &lt;chr&gt; &quot;other&quot;, &quot;black&quot;, &quot;other&quot;, &quot;other&quot;, &quot;white&quot;, &quot;white&quot;, &quot;la…
+## $ married      &lt;int&gt; 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, …
+## $ income_1     &lt;int&gt; 42504, 45341, 69261, 41654, 66149, 46009, 68791, 62362, 6…
+## $ income_2     &lt;int&gt; 56418, 59810, 92139, 56264, 88635, 59918, 91662, 83720, 8…
+## $ depression_1 &lt;int&gt; 23, 20, 16, 14, 10, 14, 13, 6, 20, 11, 24, 21, 12, 10, 10…
+## $ depression_2 &lt;int&gt; 26, 25, 20, 19, 13, 17, 17, 5, 26, 13, 28, 24, 14, 12, 12…
+## $ anx_1        &lt;int&gt; 21, 20, 15, 15, 8, 14, 16, 5, 17, 11, 26, 23, 12, 10, 12,…
+## $ anx_2        &lt;int&gt; 22, 23, 19, 10, 7, 16, 17, 4, 19, 10, 25, 22, 9, 12, 12, …
+## $ smoking      &lt;chr&gt; &quot;Non-smoker&quot;, &quot;Smoker&quot;, &quot;Smoker&quot;, &quot;99&quot;, &quot;Non-smoker&quot;, &quot;No…
+## $ race_f       &lt;fct&gt; other, black, other, other, white, white, latinx, white, …
+## $ smoking_f    &lt;fct&gt; Non-smoker, Smoker, Smoker, 99, Non-smoker, Non-smoker, N…</code></pre>
+<p>Now, all of our variables are lowercase and consistent.</p>
+<p>You can also remove columns and/or rows that are completely missing. We do not have any missing rows or columns in our real dataset, so we will make one up to show you how it works.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="tidy-data.html#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">3</span>),</span>
+<span id="cb23-2"><a href="tidy-data.html#cb23-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var2 =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;y&quot;</span>),</span>
+<span id="cb23-3"><a href="tidy-data.html#cb23-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var3 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
+<span id="cb23-4"><a href="tidy-data.html#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="tidy-data.html#cb23-5" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>##   var1 var2 var3
+## 1    1    a   NA
+## 2   NA &lt;NA&gt;   NA
+## 3    6    c   NA
+## 4    8    s   NA
+## 5    3    y   NA</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="tidy-data.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty</span>(df, <span class="st">&quot;rows&quot;</span>)</span></code></pre></div>
+<pre><code>##   var1 var2 var3
+## 1    1    a   NA
+## 3    6    c   NA
+## 4    8    s   NA
+## 5    3    y   NA</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="tidy-data.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty</span>(df, <span class="st">&quot;cols&quot;</span>)</span></code></pre></div>
+<pre><code>##   var1 var2
+## 1    1    a
+## 2   NA &lt;NA&gt;
+## 3    6    c
+## 4    8    s
+## 5    3    y</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="tidy-data.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty</span>(df, <span class="fu">c</span>(<span class="st">&quot;rows&quot;</span>, <span class="st">&quot;cols&quot;</span>))</span></code></pre></div>
+<pre><code>##   var1 var2
+## 1    1    a
+## 3    6    c
+## 4    8    s
+## 5    3    y</code></pre>
+</div>
+<div id="washer-function-in-the-furniture-package" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Washer function in the Furniture package</h2>
+<p>Note the use of <code>head()</code> to only print 6 rows (instead of all of them).</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="tidy-data.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)</span>
+<span id="cb31-2"><a href="tidy-data.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="tidy-data.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">washer</span>(clean_df, <span class="dv">99</span>, <span class="at">value =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="tidy-data.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   v1 id educ age    sex  race married income_1 income_2 depression_1
+## 1  1  1   14  58 female other       0    42504    56418           23
+## 2  2  2   15  32   male black       0    45341    59810           20
+## 3  3  3   23  47   male other       0    69261    92139           16
+## 4  4  4   14  35 female other       1    41654    56264           14
+## 5  5  5   22  51   male white       0    66149    88635           10
+## 6  6  6   15  73   male white       1    46009    59918           14
+##   depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1           26    21    22 Non-smoker  other Non-smoker
+## 2           25    20    23     Smoker  black     Smoker
+## 3           20    15    19     Smoker  other     Smoker
+## 4           19    15    10       &lt;NA&gt;  other       &lt;NA&gt;
+## 5           13     8     7 Non-smoker  white Non-smoker
+## 6           17    14    16 Non-smoker  white Non-smoker</code></pre>
+</div>
+<div id="forcats-package" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Forcats Package</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="tidy-data.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats) <span class="co"># forcats is also in tidyverse so if you downloaded tidyverse you don&#39;t need to download this as well</span></span></code></pre></div>
+<div id="relevel" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Relevel</h3>
+<p>You can manually reorder factor levels</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="tidy-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_relevel</span>(clean_df<span class="sc">$</span>race_f, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;latinx&quot;</span>, <span class="st">&quot;other&quot;</span>)</span></code></pre></div>
+<pre><code>##   [1] other  black  other  other  white  white  latinx white  other  white 
+##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
+##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
+##  [31] black  other  white  latinx latinx black  white  white  white  latinx
+##  [41] white  white  black  black  white  white  black  white  latinx white 
+##  [51] other  latinx other  black  latinx other  latinx white  white  black 
+##  [61] white  latinx white  black  black  black  white  white  black  white 
+##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
+##  [81] other  latinx other  white  latinx black  other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
+## Levels: white black latinx other</code></pre>
+</div>
+<div id="reorder" class="section level3" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Reorder</h3>
+<p>Reorder a factor by its levels’ frequency</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="tidy-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_infreq</span>(clean_df<span class="sc">$</span>race_f)</span></code></pre></div>
+<pre><code>##   [1] other  black  other  other  white  white  latinx white  other  white 
+##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
+##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
+##  [31] black  other  white  latinx latinx black  white  white  white  latinx
+##  [41] white  white  black  black  white  white  black  white  latinx white 
+##  [51] other  latinx other  black  latinx other  latinx white  white  black 
+##  [61] white  latinx white  black  black  black  white  white  black  white 
+##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
+##  [81] other  latinx other  white  latinx black  other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
+## Levels: latinx white black other</code></pre>
+<p>Reorder a factor by a numeric variable</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="tidy-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_reorder</span>(clean_df<span class="sc">$</span>race_f, clean_df<span class="sc">$</span>income_1)</span></code></pre></div>
+<pre><code>##   [1] other  black  other  other  white  white  latinx white  other  white 
+##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
+##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
+##  [31] black  other  white  latinx latinx black  white  white  white  latinx
+##  [41] white  white  black  black  white  white  black  white  latinx white 
+##  [51] other  latinx other  black  latinx other  latinx white  white  black 
+##  [61] white  latinx white  black  black  black  white  white  black  white 
+##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
+##  [81] other  latinx other  white  latinx black  other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
+## Levels: other black latinx white</code></pre>
+</div>
+<div id="lump" class="section level3" number="2.7.3">
+<h3><span class="header-section-number">2.7.3</span> Lump</h3>
+<p>When you have a factor with too many levels, you can lump all of the infrequent ones into one factor, “other.” You can specify how many levels you want to include. the argument “n” is the number of levels you want to keep, besides the “other” category that will be made from the lump function. You can also include the argument other_level = "" if you would like to change the name from other to something more specific.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="tidy-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_lump</span>(clean_df<span class="sc">$</span>race_f, <span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##   [1] Other  Other  Other  Other  white  white  latinx white  Other  white 
+##  [11] latinx latinx latinx latinx latinx Other  latinx Other  latinx Other 
+##  [21] Other  Other  latinx Other  white  white  latinx white  latinx latinx
+##  [31] Other  Other  white  latinx latinx Other  white  white  white  latinx
+##  [41] white  white  Other  Other  white  white  Other  white  latinx white 
+##  [51] Other  latinx Other  Other  latinx Other  latinx white  white  Other 
+##  [61] white  latinx white  Other  Other  Other  white  white  Other  white 
+##  [71] white  Other  latinx latinx Other  white  white  latinx latinx Other 
+##  [81] Other  latinx Other  white  latinx Other  Other  white  latinx white 
+##  [91] white  latinx latinx latinx latinx white  Other  latinx latinx white 
+## Levels: latinx white Other</code></pre>
+<p>In this example, we previously had four levels of the race variable: white, black, latinx, and other. When we specified n = 2, we lumped the other and black categories (the most infrequent two) into one “Other” category. It kept our two most frequent categories: white and latinx.</p>
+</div>
+<div id="other-useful-functions-for-factors" class="section level3" number="2.7.4">
+<h3><span class="header-section-number">2.7.4</span> Other Useful Functions for Factors</h3>
+<div class="figure">
+<img src="/Users/dculi/Box/R%20Course/forcatscheat.png" alt="" />
+<p class="caption">Forcats cheat sheet</p>
+</div>
+<hr />
+</div>
+</div>
+<div id="tidyverse" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Tidyverse</h2>
+<div id="pipes" class="section level3" number="2.8.1">
+<h3><span class="header-section-number">2.8.1</span> Pipes</h3>
+<pre><code>me %&gt;% 
+  wake_up(&quot;8:00am&quot;) %&gt;% 
+  exercise(30, units = &quot;minutes&quot;) %&gt;% 
+  shower(15, units = &quot;minutes&quot;) %&gt;% 
+  eat_breakfast(&quot;toast&quot;) %&gt;% 
+  go_to_work(&quot;basement&quot;)</code></pre>
+<p>Piping takes what is on the left-hand side and puts it in the right hand side’s function. If you look at the code below, you’ll see how code looks without a pipe.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="tidy-data.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(clean_df)</span></code></pre></div>
+<pre><code>##        v1               id              educ            age       
+##  Min.   :  1.00   Min.   :  1.00   Min.   :10.00   Min.   :18.00  
+##  1st Qu.: 25.75   1st Qu.: 25.75   1st Qu.:15.00   1st Qu.:35.75  
+##  Median : 50.50   Median : 50.50   Median :20.00   Median :49.00  
+##  Mean   : 50.50   Mean   : 50.50   Mean   :18.65   Mean   :48.24  
+##  3rd Qu.: 75.25   3rd Qu.: 75.25   3rd Qu.:22.00   3rd Qu.:59.25  
+##  Max.   :100.00   Max.   :100.00   Max.   :25.00   Max.   :75.00  
+##      sex                race              married        income_1    
+##  Length:100         Length:100         Min.   :0.00   Min.   :29329  
+##  Class :character   Class :character   1st Qu.:0.00   1st Qu.:45348  
+##  Mode  :character   Mode  :character   Median :0.00   Median :59840  
+##                                        Mean   :0.43   Mean   :56053  
+##                                        3rd Qu.:1.00   3rd Qu.:66275  
+##                                        Max.   :1.00   Max.   :75987  
+##     income_2       depression_1    depression_2       anx_1      
+##  Min.   : 39557   Min.   : 4.00   Min.   : 4.00   Min.   :-1.00  
+##  1st Qu.: 59985   1st Qu.: 9.00   1st Qu.:11.00   1st Qu.: 8.00  
+##  Median : 79867   Median :13.00   Median :17.00   Median :13.50  
+##  Mean   : 74689   Mean   :13.68   Mean   :16.47   Mean   :13.26  
+##  3rd Qu.: 88179   3rd Qu.:18.00   3rd Qu.:22.00   3rd Qu.:18.00  
+##  Max.   :100518   Max.   :25.00   Max.   :31.00   Max.   :26.00  
+##      anx_2        smoking             race_f        smoking_f 
+##  Min.   : 1.0   Length:100         black :20   99        : 8  
+##  1st Qu.: 8.0   Class :character   latinx:33   Non-smoker:70  
+##  Median :13.0   Mode  :character   other :14   Smoker    :14  
+##  Mean   :13.3                      white :33   NA&#39;s      : 8  
+##  3rd Qu.:18.0                                                 
+##  Max.   :27.0</code></pre>
+<p>Now, here is what the code looks like using a pipe.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="tidy-data.html#cb45-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="tidy-data.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##        v1               id              educ            age       
+##  Min.   :  1.00   Min.   :  1.00   Min.   :10.00   Min.   :18.00  
+##  1st Qu.: 25.75   1st Qu.: 25.75   1st Qu.:15.00   1st Qu.:35.75  
+##  Median : 50.50   Median : 50.50   Median :20.00   Median :49.00  
+##  Mean   : 50.50   Mean   : 50.50   Mean   :18.65   Mean   :48.24  
+##  3rd Qu.: 75.25   3rd Qu.: 75.25   3rd Qu.:22.00   3rd Qu.:59.25  
+##  Max.   :100.00   Max.   :100.00   Max.   :25.00   Max.   :75.00  
+##      sex                race              married        income_1    
+##  Length:100         Length:100         Min.   :0.00   Min.   :29329  
+##  Class :character   Class :character   1st Qu.:0.00   1st Qu.:45348  
+##  Mode  :character   Mode  :character   Median :0.00   Median :59840  
+##                                        Mean   :0.43   Mean   :56053  
+##                                        3rd Qu.:1.00   3rd Qu.:66275  
+##                                        Max.   :1.00   Max.   :75987  
+##     income_2       depression_1    depression_2       anx_1      
+##  Min.   : 39557   Min.   : 4.00   Min.   : 4.00   Min.   :-1.00  
+##  1st Qu.: 59985   1st Qu.: 9.00   1st Qu.:11.00   1st Qu.: 8.00  
+##  Median : 79867   Median :13.00   Median :17.00   Median :13.50  
+##  Mean   : 74689   Mean   :13.68   Mean   :16.47   Mean   :13.26  
+##  3rd Qu.: 88179   3rd Qu.:18.00   3rd Qu.:22.00   3rd Qu.:18.00  
+##  Max.   :100518   Max.   :25.00   Max.   :31.00   Max.   :26.00  
+##      anx_2        smoking             race_f        smoking_f 
+##  Min.   : 1.0   Length:100         black :20   99        : 8  
+##  1st Qu.: 8.0   Class :character   latinx:33   Non-smoker:70  
+##  Median :13.0   Mode  :character   other :14   Smoker    :14  
+##  Mean   :13.3                      white :33   NA&#39;s      : 8  
+##  3rd Qu.:18.0                                                 
+##  Max.   :27.0</code></pre>
+<p>It may not seem to make the code more readable, but the more complex your code is the easier it will be to read it using pipes. It also allows you to connect multiple lines of code without having to overwrite your dataset multiple times. As we go through more data cleaning and wrangling, you’ll begin to see how piping makes a difference when coding.</p>
+</div>
+<div id="subset-data" class="section level3" number="2.8.2">
+<h3><span class="header-section-number">2.8.2</span> Subset Data</h3>
+<div id="select-function" class="section level4" number="2.8.2.1">
+<h4><span class="header-section-number">2.8.2.1</span> Select function</h4>
+<p>The select function allows you to pull specific information out of our dataset. You can do this using baseR commands, or with the select function from tidyverse.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="tidy-data.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clean_df[, <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;educ&quot;</span>, <span class="st">&quot;age&quot;</span>)])</span></code></pre></div>
+<pre><code>##   id educ age
+## 1  1   14  58
+## 2  2   15  32
+## 3  3   23  47
+## 4  4   14  35
+## 5  5   22  51
+## 6  6   15  73</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="tidy-data.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clean_df[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)])</span></code></pre></div>
+<pre><code>##   v1 id educ
+## 1  1  1   14
+## 2  2  2   15
+## 3  3  3   23
+## 4  4  4   14
+## 5  5  5   22
+## 6  6  6   15</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="tidy-data.html#cb51-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="tidy-data.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, educ, age) <span class="sc">%&gt;%</span> </span>
+<span id="cb51-3"><a href="tidy-data.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   id educ age
+## 1  1   14  58
+## 2  2   15  32
+## 3  3   23  47
+## 4  4   14  35
+## 5  5   22  51
+## 6  6   15  73</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="tidy-data.html#cb53-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="tidy-data.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-3"><a href="tidy-data.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   v1 id educ
+## 1  1  1   14
+## 2  2  2   15
+## 3  3  3   23
+## 4  4  4   14
+## 5  5  5   22
+## 6  6  6   15</code></pre>
+<p>Each code chunk does the same thing. The first two, using [, is the “base R” way of selecting variables. The last two, using the pipe, is the tidyverse way. Both work great so the choice is yours.</p>
+</div>
+<div id="starts_with-ends_with-contains" class="section level4" number="2.8.2.2">
+<h4><span class="header-section-number">2.8.2.2</span> starts_with(), ends_with(), contains()</h4>
+<p>When you use tidyverse, you can pull variables out that have common features. Here are a few examples. Note that we use the select function as well as another function to pull out information.</p>
+<p>This line of code pulls out the variables that start with the word “income.”</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="tidy-data.html#cb55-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="tidy-data.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">&quot;income&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-3"><a href="tidy-data.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   income_1 income_2
+## 1    42504    56418
+## 2    45341    59810
+## 3    69261    92139
+## 4    41654    56264
+## 5    66149    88635
+## 6    46009    59918</code></pre>
+<p>This code allows you to select all of the variables in your dataset that end with _1 and _2.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="tidy-data.html#cb57-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="tidy-data.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="tidy-data.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   income_1 depression_1 anx_1 income_2 depression_2 anx_2
+## 1    42504           23    21    56418           26    22
+## 2    45341           20    20    59810           25    23
+## 3    69261           16    15    92139           20    19
+## 4    41654           14    15    56264           19    10
+## 5    66149           10     8    88635           13     7
+## 6    46009           14    14    59918           17    16</code></pre>
+<p>With this code you can pull out any variables that contain “anx” anywhere in the variable name.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="tidy-data.html#cb59-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="tidy-data.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;anx&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-3"><a href="tidy-data.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   anx_1 anx_2
+## 1    21    22
+## 2    20    23
+## 3    15    19
+## 4    15    10
+## 5     8     7
+## 6    14    16</code></pre>
+</div>
+</div>
+<div id="filter-equalityinequality-andor-within" class="section level3" number="2.8.3">
+<h3><span class="header-section-number">2.8.3</span> Filter, equality/inequality, and/or, within</h3>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="tidy-data.html#cb61-1" aria-hidden="true" tabindex="-1"></a>clean_df[clean_df<span class="sc">$</span>anx_1 <span class="sc">&gt;</span> <span class="dv">20</span>,]</span></code></pre></div>
+<pre><code>##    v1 id educ age    sex   race married income_1 income_2 depression_1
+## 1   1  1   14  58 female  other       0    42504    56418           23
+## 11 11 11   13  19   male latinx       0    38609    51231           24
+## 12 12 12   12  52   male latinx       0    35765    48350           21
+## 27 27 27   11  32 female latinx       1    31930    43994           25
+## 31 31 31   12  32 female  black       0    35574    48605           20
+## 32 32 32   16  32 female  other       1    48240    64209           20
+## 39 39 39   23  53   male  white       0    69101    90538           24
+## 41 41 41   24  41 female  white       0    71409    96501           25
+## 42 42 42   21  48   male  white       0    63792    84229           22
+## 56 56 56   20  64   male  other       0    59826    80546           22
+## 72 72 72   21  52 female  black       1    62825    84191           25
+## 77 77 77   17  50 female  white       0    51535    67826           23
+## 86 86 86   16  56 female  black       0    49602    64341           21
+## 94 94 94   15  68   male latinx       0    44938    60644           23
+## 95 95 95   20  23   male latinx       1    59629    79479           25
+## 96 96 96   19  60 female  white       1    56833    75545           20
+##    depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1            26    21    22 Non-smoker  other Non-smoker
+## 11           28    26    25       &lt;NA&gt; latinx       &lt;NA&gt;
+## 12           24    23    22 Non-smoker latinx Non-smoker
+## 27           31    25    27       &lt;NA&gt; latinx       &lt;NA&gt;
+## 31           24    21    23 Non-smoker  black Non-smoker
+## 32           24    25    25 Non-smoker  other Non-smoker
+## 39           29    25    24 Non-smoker  white Non-smoker
+## 41           31    26    21 Non-smoker  white Non-smoker
+## 42           25    22    25 Non-smoker  white Non-smoker
+## 56           25    25    23         99  other         99
+## 72           30    25    24 Non-smoker  black Non-smoker
+## 77           27    22    24 Non-smoker  white Non-smoker
+## 86           25    23    25 Non-smoker  black Non-smoker
+## 94           26    24    27 Non-smoker latinx Non-smoker
+## 95           29    23    23     Smoker latinx     Smoker
+## 96           25    21    20 Non-smoker  white Non-smoker</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="tidy-data.html#cb63-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a href="tidy-data.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(anx_1 <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="tidy-data.html#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   v1 id educ age    sex   race married income_1 income_2 depression_1
+## 1  1  1   14  58 female  other       0    42504    56418           23
+## 2 11 11   13  19   male latinx       0    38609    51231           24
+## 3 12 12   12  52   male latinx       0    35765    48350           21
+## 4 27 27   11  32 female latinx       1    31930    43994           25
+## 5 31 31   12  32 female  black       0    35574    48605           20
+## 6 32 32   16  32 female  other       1    48240    64209           20
+##   depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1           26    21    22 Non-smoker  other Non-smoker
+## 2           28    26    25       &lt;NA&gt; latinx       &lt;NA&gt;
+## 3           24    23    22 Non-smoker latinx Non-smoker
+## 4           31    25    27       &lt;NA&gt; latinx       &lt;NA&gt;
+## 5           24    21    23 Non-smoker  black Non-smoker
+## 6           24    25    25 Non-smoker  other Non-smoker</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="tidy-data.html#cb65-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb65-2"><a href="tidy-data.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-3"><a href="tidy-data.html#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   v1 id educ age    sex   race married income_1 income_2 depression_1
+## 1  1  1   14  58 female  other       0    42504    56418           23
+## 2  4  4   14  35 female  other       1    41654    56264           14
+## 3  8  8   21  66 female  white       1    62362    83720            6
+## 4  9  9   21  38 female  other       0    62716    84363           20
+## 5 10 10   20  53 female  white       1    60309    80255           11
+## 6 15 15   22  57 female latinx       1    66286    87292           10
+##   depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1           26    21    22 Non-smoker  other Non-smoker
+## 2           19    15    10         99  other         99
+## 3            5     5     4 Non-smoker  white Non-smoker
+## 4           26    17    19 Non-smoker  other Non-smoker
+## 5           13    11    10     Smoker  white     Smoker
+## 6           12    12    12 Non-smoker latinx Non-smoker</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="tidy-data.html#cb67-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="tidy-data.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span> <span class="sc">&amp;</span> race <span class="sc">==</span> <span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a href="tidy-data.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   v1 id educ age    sex  race married income_1 income_2 depression_1
+## 1 20 20   21  56 female black       0    62751    84363            5
+## 2 31 31   12  32 female black       0    35574    48605           20
+## 3 43 43   25  49 female black       0    74573    99489           16
+## 4 44 44   21  33 female black       0    63295    84883            8
+## 5 60 60   22  25 female black       0    65956    87883           18
+## 6 64 64   25  21 female black       0    75987   100466            4
+##   depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1            7     3     3 Non-smoker  black Non-smoker
+## 2           24    21    23 Non-smoker  black Non-smoker
+## 3           18    15    16 Non-smoker  black Non-smoker
+## 4           10     7     7 Non-smoker  black Non-smoker
+## 5           21    16    16 Non-smoker  black Non-smoker
+## 6            5     1     2 Non-smoker  black Non-smoker</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="tidy-data.html#cb69-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="tidy-data.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span> <span class="sc">|</span> educ <span class="sc">==</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a href="tidy-data.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   v1 id educ age    sex   race married income_1 income_2 depression_1
+## 1  1  1   14  58 female  other       0    42504    56418           23
+## 2  4  4   14  35 female  other       1    41654    56264           14
+## 3  8  8   21  66 female  white       1    62362    83720            6
+## 4  9  9   21  38 female  other       0    62716    84363           20
+## 5 10 10   20  53 female  white       1    60309    80255           11
+## 6 15 15   22  57 female latinx       1    66286    87292           10
+##   depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1           26    21    22 Non-smoker  other Non-smoker
+## 2           19    15    10         99  other         99
+## 3            5     5     4 Non-smoker  white Non-smoker
+## 4           26    17    19 Non-smoker  other Non-smoker
+## 5           13    11    10     Smoker  white     Smoker
+## 6           12    12    12 Non-smoker latinx Non-smoker</code></pre>
+</div>
+<div id="group_by" class="section level3" number="2.8.4">
+<h3><span class="header-section-number">2.8.4</span> Group_by</h3>
+<p>The group_by() function allows for us to group our data by a specific variable and compare groups with descriptive statistics.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="tidy-data.html#cb71-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="tidy-data.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race_f) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-3"><a href="tidy-data.html#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>(), </span>
+<span id="cb71-4"><a href="tidy-data.html#cb71-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(depression_1),</span>
+<span id="cb71-5"><a href="tidy-data.html#cb71-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(depression_1))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 4
+##   race_f     N  mean    sd
+##   &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 black     20  12.9  6.93
+## 2 latinx    33  13.5  5.75
+## 3 other     14  15.4  6.10
+## 4 white     33  13.6  6.09</code></pre>
+<p>This example groups the dataset by race_f and summarizes it by the number per race (the n() argument), and provides the mean (mean()) and standard deviation (sd()) for depression scores by race.</p>
+</div>
+<div id="mutate" class="section level3" number="2.8.5">
+<h3><span class="header-section-number">2.8.5</span> Mutate</h3>
+<p>Anytime you see mutate() it means you are adding a new variable or modifying an existing one. For example, lets take a look at what class our sex variable is.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="tidy-data.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(clean_df<span class="sc">$</span>sex)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>When we imported the data, R did not know sex was a factor. So, we need to change it to be factor. Using the mutate function allows us to modify existing variables, or create new variables. In this case, I make a new variable called “sex_f” and change sex to be a factor.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="tidy-data.html#cb75-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb75-2"><a href="tidy-data.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex_f =</span> <span class="fu">factor</span>(sex))</span>
+<span id="cb75-3"><a href="tidy-data.html#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-4"><a href="tidy-data.html#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(clean_df<span class="sc">$</span>sex_f)</span></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+</div>
+<div id="case_when" class="section level3" number="2.8.6">
+<h3><span class="header-section-number">2.8.6</span> Case_when</h3>
+<p>When you want to modify variables based on various possible conditions, you can use the case_when() function. For example, when a categorical variable is dummy-coded to be 0,1,2.. you can change it to have actual name labels. In this example, our married variable i supposed to be factor of 0 = not married and 1 = married. Lets look at our married variable before we use mutate and case_when.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="tidy-data.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(clean_df<span class="sc">$</span>married)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    0.00    0.00    0.43    1.00    1.00</code></pre>
+<p>The next code chunk will show a new variable, called “married_f” that has levels “married” and “not married” and is a factor. To do this, we need to use mutate to create the new married_f variable, and then tell r that when the married variable = 1, then label married, and if married = 0, label it not married. Note that we need to use == to specify that it is equal to something. We also need to put our labels in "" when they are words. The last line of code turns married_f into a factor, rather than a character variable.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="tidy-data.html#cb79-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb79-2"><a href="tidy-data.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">married_f =</span> <span class="fu">case_when</span>(</span>
+<span id="cb79-3"><a href="tidy-data.html#cb79-3" aria-hidden="true" tabindex="-1"></a>    married <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;married&quot;</span>,</span>
+<span id="cb79-4"><a href="tidy-data.html#cb79-4" aria-hidden="true" tabindex="-1"></a>    married <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;not married&quot;</span></span>
+<span id="cb79-5"><a href="tidy-data.html#cb79-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>())</span>
+<span id="cb79-6"><a href="tidy-data.html#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-7"><a href="tidy-data.html#cb79-7" aria-hidden="true" tabindex="-1"></a>clean_df<span class="sc">$</span>married_f <span class="sc">%&gt;%</span> </span>
+<span id="cb79-8"><a href="tidy-data.html#cb79-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##     married not married 
+##          43          57</code></pre>
+</div>
+</div>
+<div id="cut-intervals" class="section level2" number="2.9">
+<h2><span class="header-section-number">2.9</span> Cut Intervals</h2>
+<p>To be added</p>
+
+</div>
 </div>
             </section>
 
@@ -245,11 +752,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="data-in-and-out.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cleaning-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="joining-datasets.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -290,7 +796,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

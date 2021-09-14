@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>References | Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling</title>
   <meta name="description" content="Data Management: Importing, Subsetting, Creating Variables, and Saving." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="References | Encyclopedia of Quantitative Methods in R, vol. 1: Data Wrangling" />
   <meta property="og:type" content="book" />
@@ -34,6 +34,7 @@
 
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -168,45 +168,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>2</b> Tidy Data</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="tidy-data.html"><a href="tidy-data.html#define-tidy-data"><i class="fa fa-check"></i><b>2.1</b> Define Tidy Data</a></li>
+<li class="chapter" data-level="2.2" data-path="tidy-data.html"><a href="tidy-data.html#tidying-cleaning-data"><i class="fa fa-check"></i><b>2.2</b> Tidying (Cleaning) Data</a></li>
+<li class="chapter" data-level="2.3" data-path="tidy-data.html"><a href="tidy-data.html#changing-variable-type"><i class="fa fa-check"></i><b>2.3</b> Changing Variable Type</a></li>
+<li class="chapter" data-level="2.4" data-path="tidy-data.html"><a href="tidy-data.html#changing-a-whole-dataset-to-a-certain-class"><i class="fa fa-check"></i><b>2.4</b> Changing a whole dataset to a certain class</a></li>
+<li class="chapter" data-level="2.5" data-path="tidy-data.html"><a href="tidy-data.html#janitor-package"><i class="fa fa-check"></i><b>2.5</b> Janitor Package</a></li>
+<li class="chapter" data-level="2.6" data-path="tidy-data.html"><a href="tidy-data.html#washer-function-in-the-furniture-package"><i class="fa fa-check"></i><b>2.6</b> Washer function in the Furniture package</a></li>
+<li class="chapter" data-level="2.7" data-path="tidy-data.html"><a href="tidy-data.html#forcats-package"><i class="fa fa-check"></i><b>2.7</b> Forcats Package</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="tidy-data.html"><a href="tidy-data.html#relevel"><i class="fa fa-check"></i><b>2.7.1</b> Relevel</a></li>
+<li class="chapter" data-level="2.7.2" data-path="tidy-data.html"><a href="tidy-data.html#reorder"><i class="fa fa-check"></i><b>2.7.2</b> Reorder</a></li>
+<li class="chapter" data-level="2.7.3" data-path="tidy-data.html"><a href="tidy-data.html#lump"><i class="fa fa-check"></i><b>2.7.3</b> Lump</a></li>
+<li class="chapter" data-level="2.7.4" data-path="tidy-data.html"><a href="tidy-data.html#other-useful-functions-for-factors"><i class="fa fa-check"></i><b>2.7.4</b> Other Useful Functions for Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cleaning-data.html"><a href="cleaning-data.html"><i class="fa fa-check"></i><b>3</b> Cleaning Data</a>
+<li class="chapter" data-level="2.8" data-path="tidy-data.html"><a href="tidy-data.html#tidyverse"><i class="fa fa-check"></i><b>2.8</b> Tidyverse</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="cleaning-data.html"><a href="cleaning-data.html#changing-variable-type"><i class="fa fa-check"></i><b>3.1</b> Changing Variable Type</a></li>
-<li class="chapter" data-level="3.2" data-path="cleaning-data.html"><a href="cleaning-data.html#changing-a-whole-dataset-to-a-certain-class"><i class="fa fa-check"></i><b>3.2</b> Changing a whole dataset to a certain class</a></li>
-<li class="chapter" data-level="3.3" data-path="cleaning-data.html"><a href="cleaning-data.html#janitor-package"><i class="fa fa-check"></i><b>3.3</b> Janitor Package</a></li>
-<li class="chapter" data-level="3.4" data-path="cleaning-data.html"><a href="cleaning-data.html#washer-function-in-the-furniture-package"><i class="fa fa-check"></i><b>3.4</b> Washer function in the Furniture package</a></li>
-<li class="chapter" data-level="3.5" data-path="cleaning-data.html"><a href="cleaning-data.html#forcats-package"><i class="fa fa-check"></i><b>3.5</b> Forcats Package</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="cleaning-data.html"><a href="cleaning-data.html#relevel"><i class="fa fa-check"></i><b>3.5.1</b> Relevel</a></li>
-<li class="chapter" data-level="3.5.2" data-path="cleaning-data.html"><a href="cleaning-data.html#reorder"><i class="fa fa-check"></i><b>3.5.2</b> Reorder</a></li>
-<li class="chapter" data-level="3.5.3" data-path="cleaning-data.html"><a href="cleaning-data.html#lump"><i class="fa fa-check"></i><b>3.5.3</b> Lump</a></li>
-<li class="chapter" data-level="3.5.4" data-path="cleaning-data.html"><a href="cleaning-data.html#other-useful-functions-for-factors"><i class="fa fa-check"></i><b>3.5.4</b> Other Useful Functions for Factors</a></li>
+<li class="chapter" data-level="2.8.1" data-path="tidy-data.html"><a href="tidy-data.html#pipes"><i class="fa fa-check"></i><b>2.8.1</b> Pipes</a></li>
+<li class="chapter" data-level="2.8.2" data-path="tidy-data.html"><a href="tidy-data.html#subset-data"><i class="fa fa-check"></i><b>2.8.2</b> Subset Data</a></li>
+<li class="chapter" data-level="2.8.3" data-path="tidy-data.html"><a href="tidy-data.html#filter-equalityinequality-andor-within"><i class="fa fa-check"></i><b>2.8.3</b> Filter, equality/inequality, and/or, within</a></li>
+<li class="chapter" data-level="2.8.4" data-path="tidy-data.html"><a href="tidy-data.html#group_by"><i class="fa fa-check"></i><b>2.8.4</b> Group_by</a></li>
+<li class="chapter" data-level="2.8.5" data-path="tidy-data.html"><a href="tidy-data.html#mutate"><i class="fa fa-check"></i><b>2.8.5</b> Mutate</a></li>
+<li class="chapter" data-level="2.8.6" data-path="tidy-data.html"><a href="tidy-data.html#case_when"><i class="fa fa-check"></i><b>2.8.6</b> Case_when</a></li>
 </ul></li>
+<li class="chapter" data-level="2.9" data-path="tidy-data.html"><a href="tidy-data.html#cut-intervals"><i class="fa fa-check"></i><b>2.9</b> Cut Intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4</b> Tidyverse</a>
+<li class="chapter" data-level="3" data-path="joining-datasets.html"><a href="joining-datasets.html"><i class="fa fa-check"></i><b>3</b> Joining Datasets</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="tidyverse.html"><a href="tidyverse.html#pipes"><i class="fa fa-check"></i><b>4.1</b> Pipes</a></li>
-<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html#subset-data"><i class="fa fa-check"></i><b>4.2</b> Subset Data</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="tidyverse.html"><a href="tidyverse.html#select-function"><i class="fa fa-check"></i><b>4.2.1</b> Select function</a></li>
-<li class="chapter" data-level="4.2.2" data-path="tidyverse.html"><a href="tidyverse.html#starts_with-ends_with-contains"><i class="fa fa-check"></i><b>4.2.2</b> starts_with(), ends_with(), contains()</a></li>
-<li class="chapter" data-level="4.2.3" data-path="tidyverse.html"><a href="tidyverse.html#filter-equalityinequality-andor-within"><i class="fa fa-check"></i><b>4.2.3</b> Filter, equality/inequality, and/or, within</a></li>
+<li class="chapter" data-level="3.1" data-path="joining-datasets.html"><a href="joining-datasets.html#types-of-joining"><i class="fa fa-check"></i><b>3.1</b> types of joining</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="tidyverse.html"><a href="tidyverse.html#group_by"><i class="fa fa-check"></i><b>4.3</b> Group_by</a></li>
-<li class="chapter" data-level="4.4" data-path="tidyverse.html"><a href="tidyverse.html#mutate"><i class="fa fa-check"></i><b>4.4</b> Mutate</a></li>
-<li class="chapter" data-level="4.5" data-path="tidyverse.html"><a href="tidyverse.html#case_when"><i class="fa fa-check"></i><b>4.5</b> Case_when</a></li>
-<li class="chapter" data-level="4.6" data-path="tidyverse.html"><a href="tidyverse.html#cut-intervals"><i class="fa fa-check"></i><b>4.6</b> Cut Intervals</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="joining-datasets.html"><a href="joining-datasets.html"><i class="fa fa-check"></i><b>5</b> Joining Datasets</a>
+<li class="chapter" data-level="4" data-path="changing-structure.html"><a href="changing-structure.html"><i class="fa fa-check"></i><b>4</b> Changing Structure</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="joining-datasets.html"><a href="joining-datasets.html#types-of-joining"><i class="fa fa-check"></i><b>5.1</b> types of joining</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="changing-structure.html"><a href="changing-structure.html"><i class="fa fa-check"></i><b>6</b> Changing Structure</a>
+<li class="chapter" data-level="4.1" data-path="changing-structure.html"><a href="changing-structure.html#wide-vs.-long"><i class="fa fa-check"></i><b>4.1</b> Wide vs. Long</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="changing-structure.html"><a href="changing-structure.html#wide-vs.-long"><i class="fa fa-check"></i><b>6.1</b> Wide vs. Long</a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="changing-structure.html"><a href="changing-structure.html#tidyrgather"><i class="fa fa-check"></i><b>6.1.1</b> <code>tidyr::gather()</code></a></li>
-<li class="chapter" data-level="6.1.2" data-path="changing-structure.html"><a href="changing-structure.html#tidyrspread"><i class="fa fa-check"></i><b>6.1.2</b> <code>tidyr::spread()</code></a></li>
+<li class="chapter" data-level="4.1.1" data-path="changing-structure.html"><a href="changing-structure.html#tidyrgather"><i class="fa fa-check"></i><b>4.1.1</b> <code>tidyr::gather()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="changing-structure.html"><a href="changing-structure.html#tidyrspread"><i class="fa fa-check"></i><b>4.1.2</b> <code>tidyr::spread()</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -244,7 +238,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -285,7 +278,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

@@ -10,7 +10,7 @@ csv-and-excel
 spss-.sav
 tidy-data
 define-tidy-data
-cleaning-data
+tidying-cleaning-data
 changing-variable-type
 changing-a-whole-dataset-to-a-certain-class
 janitor-package
