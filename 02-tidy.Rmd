@@ -102,57 +102,6 @@ washer(clean_df, 99, value = NA) %>%
   head()
 ```
 
-## Forcats Package
-
-```{r}
-library(forcats) # forcats is also in tidyverse so if you downloaded tidyverse you don't need to download this as well
-```
-
-### Relevel
-
-You can manually reorder factor levels
-
-```{r}
-fct_relevel(clean_df$race_f, "white", "black", "latinx", "other")
-
-```
-
-### Reorder
-
-Reorder a factor by its levels' frequency
-
-```{r}
-fct_infreq(clean_df$race_f)
-```
-
-Reorder a factor by a numeric variable
-
-```{r}
-fct_reorder(clean_df$race_f, clean_df$income_1)
-```
-
-### Lump
-
-When you have a factor with too many levels, you can lump all of the infrequent ones into one factor, "other". You can specify how many levels you want to include. the argument "n" is the number of levels you want to keep, besides the "other" category that will be made from the lump function. You can also include the argument other_level = "" if you would like to change the name from other to something more specific.
-
-```{r}
-fct_lump(clean_df$race_f, n = 2)
-```
-In this example, we previously had four levels of the race variable: white, black, latinx, and other. When we specified n = 2, we lumped the other and black categories (the most infrequent two) into one "Other" category. It kept our two most frequent categories: white and latinx. 
-
-
-### Other Useful Functions for Factors
-
-![Forcats cheat sheet](/Users/dculi/Box/R Course/forcatscheat.png)
-
-
-
-
-
-
-
-
-
 
 --------------------------------------
 
@@ -180,7 +129,6 @@ Now, here is what the code looks like using a pipe.
 ```{r}
 clean_df %>% 
   summary()
-
 ```
 
 It may not seem to make the code more readable, but the more complex your code is the easier it will be to read it using pipes. It also allows you to connect multiple lines of code without having to overwrite your dataset multiple times. As we go through more data cleaning and wrangling, you'll begin to see how piping makes a difference when coding.
@@ -266,21 +214,14 @@ clean_df %>%
   head()
 ```
 
-
-### Group_by
-
-The group_by() function allows for us to group our data by a specific variable and compare groups with descriptive statistics. 
+Can also have it match multiple things
 
 ```{r}
-
 clean_df %>% 
-  group_by(race_f) %>% 
-  summarize(N = n(), 
-            mean = mean(depression_1),
-            sd = sd(depression_1))
+  filter(race %in% c("black", "latinx")) %>% 
+  head()
 ```
 
-This example groups the dataset by race_f and summarizes it by the number per race (the n() argument), and provides the mean (mean()) and standard deviation (sd()) for depression scores by race. 
 
 ### Mutate
 
@@ -294,16 +235,14 @@ class(clean_df$sex)
 When we imported the data, R did not know sex was a factor. So, we need to change it to be factor. Using the mutate function allows us to modify existing variables, or create new variables. In this case, I make a new variable called "sex_f" and change sex to be a factor. 
 
 ```{r}
-
 clean_df <- clean_df %>% 
   mutate(sex_f = factor(sex))
-
 class(clean_df$sex_f)
-
 ```
 
+There are loads of useful functions for mutating a variable! We will present a few here.
 
-### Case_when
+#### Case_when
 
 When you want to modify variables based on various possible conditions, you can use the case_when() function. For example, when a categorical variable is dummy-coded to be 0,1,2.. you can change it to have actual name labels. In this example, our married variable i supposed to be factor of 0 = not married and 1 = married. Lets look at our married variable before we use mutate and case_when.
 
@@ -321,12 +260,127 @@ clean_df <- clean_df %>%
     married == 0 ~ "not married"
   ) %>% as.factor())
 
-clean_df$married_f %>% 
-  summary()
-
+glimpse(clean_df)
 ```
 
-## Cut Intervals
+Here is another example.
 
-To be added
+```{r}
+clean_df <- clean_df %>% 
+  mutate(income_cat = case_when(
+    income_1 > mean(income_1, na.rm=TRUE) + sd(income_1, na.rm=TRUE) ~ "High Earner",
+    income_1 > mean(income_1, na.rm=TRUE) ~ "Mid-High Earner",
+    income_1 <= mean(income_1, na.rm=TRUE) - sd(income_1, na.rm=TRUE) ~ "Low Earner",
+    income_1 <= mean(income_1, na.rm=TRUE) ~ "Mid-Low Earner",
+  ) %>% as.factor())
+
+glimpse(clean_df)
+```
+
+This last one is a complex example but it shows the utility of `case_when()`. Any guesses what this is doing?
+
+```{r, eval = FALSE}
+data %>% 
+  rowwise() %>% 
+  mutate(
+    var1 = 
+      case_when(
+        sum(
+          item1 > 2,
+          item2 > 2,
+          item3 > 2,
+          item4 > 2,
+          item5 > 2,
+          na.rm=TRUE
+        ) >= 6 &
+        sum(
+          perf1 > 3,
+          perf2 > 3,
+          perf3 > 3,
+          na.rm=TRUE
+        ) > 0 ~ 1,
+        TRUE ~ 0
+      )
+  ) %>% 
+  ungroup() %>% 
+  mutate(var1 = factor(var1))
+```
+
+
+#### Rowsums and Rowmeans
+
+```{r}
+clean_df <- clean_df %>% 
+  mutate(dep_v1 = furniture::rowmeans(depression_1, depression_2))
+
+clean_df <- clean_df %>% 
+  rowwise() %>% 
+  mutate(dep_v2 = mean(c(depression_1, depression_2))) %>% 
+  ungroup()
+
+glimpse(clean_df)
+```
+
+### Forcats Package
+
+```{r}
+library(forcats) # forcats is also in tidyverse so if you downloaded tidyverse you don't need to download this as well
+```
+
+#### Relevel
+
+You can manually reorder factor levels
+
+```{r}
+clean_df %>% 
+  mutate(race_f = fct_relevel(race_f, "white", "black", "latinx", "other"))
+```
+
+#### Reorder
+
+Reorder a factor by its levels' frequency
+
+```{r}
+clean_df %>% 
+  mutate(race_f = fct_infreq(race_f))
+```
+
+Reorder a factor by a numeric variable
+
+```{r}
+clean_df %>% 
+  mutate(race_f = fct_reorder(race_f, income_1))
+```
+
+#### Lump
+
+When you have a factor with too many levels, you can lump all of the infrequent ones into one factor, "other". You can specify how many levels you want to include. the argument "n" is the number of levels you want to keep, besides the "other" category that will be made from the lump function. You can also include the argument other_level = "" if you would like to change the name from other to something more specific.
+
+```{r}
+clean_df %>% 
+  mutate(race_f = fct_lump(race_f, n = 2))
+```
+
+In this example, we previously had four levels of the race variable: white, black, latinx, and other. When we specified n = 2, we lumped the other and black categories (the most infrequent two) into one "Other" category. It kept our two most frequent categories: white and latinx. 
+
+
+#### Other Useful Functions for Factors
+
+![Forcats cheat sheet](/Users/dculi/Box/R Course/forcatscheat.png)
+
+
+### Group_by
+
+The group_by() function allows for us to group our data by a specific variable and compare groups with descriptive statistics. 
+
+```{r}
+clean_df %>% 
+  group_by(race_f) %>% 
+  summarize(N = n(), 
+            mean = mean(depression_1),
+            sd = sd(depression_1))
+```
+
+This example groups the dataset by race_f and summarizes it by the number per race (the n() argument), and provides the mean (mean()) and standard deviation (sd()) for depression scores by race. 
+
 

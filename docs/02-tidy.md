@@ -213,117 +213,6 @@ washer(clean_df, 99, value = NA) %>%
 ## 6           17    14    16 Non-smoker  white Non-smoker
 ```
 
-## Forcats Package
-
-
-```r
-library(forcats) # forcats is also in tidyverse so if you downloaded tidyverse you don't need to download this as well
-```
-
-### Relevel
-
-You can manually reorder factor levels
-
-
-```r
-fct_relevel(clean_df$race_f, "white", "black", "latinx", "other")
-```
-
-```
-##   [1] other  black  other  other  white  white  latinx white  other  white 
-##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
-##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
-##  [31] black  other  white  latinx latinx black  white  white  white  latinx
-##  [41] white  white  black  black  white  white  black  white  latinx white 
-##  [51] other  latinx other  black  latinx other  latinx white  white  black 
-##  [61] white  latinx white  black  black  black  white  white  black  white 
-##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
-##  [81] other  latinx other  white  latinx black  other  white  latinx white 
-##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
-## Levels: white black latinx other
-```
-
-### Reorder
-
-Reorder a factor by its levels' frequency
-
-
-```r
-fct_infreq(clean_df$race_f)
-```
-
-```
-##   [1] other  black  other  other  white  white  latinx white  other  white 
-##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
-##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
-##  [31] black  other  white  latinx latinx black  white  white  white  latinx
-##  [41] white  white  black  black  white  white  black  white  latinx white 
-##  [51] other  latinx other  black  latinx other  latinx white  white  black 
-##  [61] white  latinx white  black  black  black  white  white  black  white 
-##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
-##  [81] other  latinx other  white  latinx black  other  white  latinx white 
-##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
-## Levels: latinx white black other
-```
-
-Reorder a factor by a numeric variable
-
-
-```r
-fct_reorder(clean_df$race_f, clean_df$income_1)
-```
-
-```
-##   [1] other  black  other  other  white  white  latinx white  other  white 
-##  [11] latinx latinx latinx latinx latinx black  latinx black  latinx black 
-##  [21] black  other  latinx other  white  white  latinx white  latinx latinx
-##  [31] black  other  white  latinx latinx black  white  white  white  latinx
-##  [41] white  white  black  black  white  white  black  white  latinx white 
-##  [51] other  latinx other  black  latinx other  latinx white  white  black 
-##  [61] white  latinx white  black  black  black  white  white  black  white 
-##  [71] white  black  latinx latinx other  white  white  latinx latinx black 
-##  [81] other  latinx other  white  latinx black  other  white  latinx white 
-##  [91] white  latinx latinx latinx latinx white  black  latinx latinx white 
-## Levels: other black latinx white
-```
-
-### Lump
-
-When you have a factor with too many levels, you can lump all of the infrequent ones into one factor, "other". You can specify how many levels you want to include. the argument "n" is the number of levels you want to keep, besides the "other" category that will be made from the lump function. You can also include the argument other_level = "" if you would like to change the name from other to something more specific.
-
-
-```r
-fct_lump(clean_df$race_f, n = 2)
-```
-
-```
-##   [1] Other  Other  Other  Other  white  white  latinx white  Other  white 
-##  [11] latinx latinx latinx latinx latinx Other  latinx Other  latinx Other 
-##  [21] Other  Other  latinx Other  white  white  latinx white  latinx latinx
-##  [31] Other  Other  white  latinx latinx Other  white  white  white  latinx
-##  [41] white  white  Other  Other  white  white  Other  white  latinx white 
-##  [51] Other  latinx Other  Other  latinx Other  latinx white  white  Other 
-##  [61] white  latinx white  Other  Other  Other  white  white  Other  white 
-##  [71] white  Other  latinx latinx Other  white  white  latinx latinx Other 
-##  [81] Other  latinx Other  white  latinx Other  Other  white  latinx white 
-##  [91] white  latinx latinx latinx latinx white  Other  latinx latinx white 
-## Levels: latinx white Other
-```
-In this example, we previously had four levels of the race variable: white, black, latinx, and other. When we specified n = 2, we lumped the other and black categories (the most infrequent two) into one "Other" category. It kept our two most frequent categories: white and latinx. 
-
-
-### Other Useful Functions for Factors
-
-![Forcats cheat sheet](/Users/dculi/Box/R Course/forcatscheat.png)
-
-
-
-
-
-
-
-
-
 
 --------------------------------------
 
@@ -691,6 +580,352 @@ clean_df %>%
 ## 6           12    12    12 Non-smoker latinx Non-smoker
 ```
 
+Can also have it match multiple things
+
+
+```r
+clean_df %>% 
+  filter(race %in% c("black", "latinx")) %>% 
+  head()
+```
+
+```
+##   v1 id educ age  sex   race married income_1 income_2 depression_1
+## 1  2  2   15  32 male  black       0    45341    59810           20
+## 2  7  7   23  46 male latinx       1    68791    91662           13
+## 3 11 11   13  19 male latinx       0    38609    51231           24
+## 4 12 12   12  52 male latinx       0    35765    48350           21
+## 5 13 13   22  24 male latinx       0    65359    88375           12
+## 6 14 14   12  69 male latinx       1    35638    47970           10
+##   depression_2 anx_1 anx_2    smoking race_f  smoking_f
+## 1           25    20    23     Smoker  black     Smoker
+## 2           17    16    17 Non-smoker latinx Non-smoker
+## 3           28    26    25       <NA> latinx       <NA>
+## 4           24    23    22 Non-smoker latinx Non-smoker
+## 5           14    12     9 Non-smoker latinx Non-smoker
+## 6           12    10    12 Non-smoker latinx Non-smoker
+```
+
+
+### Mutate
+
+Anytime you see mutate() it means you are adding a new variable or modifying an existing one.  For example, lets take a look at what class our sex variable is.
+
+
+
+```r
+class(clean_df$sex)
+```
+
+```
+## [1] "character"
+```
+
+When we imported the data, R did not know sex was a factor. So, we need to change it to be factor. Using the mutate function allows us to modify existing variables, or create new variables. In this case, I make a new variable called "sex_f" and change sex to be a factor. 
+
+
+```r
+clean_df <- clean_df %>% 
+  mutate(sex_f = factor(sex))
+class(clean_df$sex_f)
+```
+
+```
+## [1] "factor"
+```
+
+There are loads of useful functions for mutating a variable! We will present a few here.
+
+#### Case_when
+
+When you want to modify variables based on various possible conditions, you can use the case_when() function. For example, when a categorical variable is dummy-coded to be 0,1,2.. you can change it to have actual name labels. In this example, our married variable i supposed to be factor of 0 = not married and 1 = married. Lets look at our married variable before we use mutate and case_when.
+
+
+```r
+summary(clean_df$married)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    0.00    0.00    0.43    1.00    1.00
+```
+
+The next code chunk will show a new variable, called "married_f" that has levels "married" and "not married" and is a factor. To do this, we need to use mutate to create the new married_f variable, and then tell r that when the married variable = 1, then label married, and if married = 0, label it not married. Note that we need to use == to specify that it is equal to something. We also need to put our labels in "" when they are words. The last line of code turns married_f into a factor, rather than a character variable. 
+
+
+
+```r
+clean_df <- clean_df %>% 
+  mutate(married_f = case_when(
+    married == 1 ~ "married",
+    married == 0 ~ "not married"
+  ) %>% as.factor())
+
+glimpse(clean_df)
+```
+
+```
+## Rows: 100
+## Columns: 18
+## $ v1           <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ id           <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ educ         <int> 14, 15, 23, 14, 22, 15, 23, 21, 21, 20, 13, 12, 22, 12, 2…
+## $ age          <int> 58, 32, 47, 35, 51, 73, 46, 66, 38, 53, 19, 52, 24, 69, 5…
+## $ sex          <chr> "female", "male", "male", "female", "male", "male", "male…
+## $ race         <chr> "other", "black", "other", "other", "white", "white", "la…
+## $ married      <int> 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, …
+## $ income_1     <int> 42504, 45341, 69261, 41654, 66149, 46009, 68791, 62362, 6…
+## $ income_2     <int> 56418, 59810, 92139, 56264, 88635, 59918, 91662, 83720, 8…
+## $ depression_1 <int> 23, 20, 16, 14, 10, 14, 13, 6, 20, 11, 24, 21, 12, 10, 10…
+## $ depression_2 <int> 26, 25, 20, 19, 13, 17, 17, 5, 26, 13, 28, 24, 14, 12, 12…
+## $ anx_1        <int> 21, 20, 15, 15, 8, 14, 16, 5, 17, 11, 26, 23, 12, 10, 12,…
+## $ anx_2        <int> 22, 23, 19, 10, 7, 16, 17, 4, 19, 10, 25, 22, 9, 12, 12, …
+## $ smoking      <chr> "Non-smoker", "Smoker", "Smoker", "99", "Non-smoker", "No…
+## $ race_f       <fct> other, black, other, other, white, white, latinx, white, …
+## $ smoking_f    <fct> Non-smoker, Smoker, Smoker, 99, Non-smoker, Non-smoker, N…
+## $ sex_f        <fct> female, male, male, female, male, male, male, female, fem…
+## $ married_f    <fct> not married, not married, not married, married, not marri…
+```
+
+Here is another example.
+
+
+```r
+clean_df <- clean_df %>% 
+  mutate(income_cat = case_when(
+    income_1 > mean(income_1, na.rm=TRUE) + sd(income_1, na.rm=TRUE) ~ "High Earner",
+    income_1 > mean(income_1, na.rm=TRUE) ~ "Mid-High Earner",
+    income_1 <= mean(income_1, na.rm=TRUE) - sd(income_1, na.rm=TRUE) ~ "Low Earner",
+    income_1 <= mean(income_1, na.rm=TRUE) ~ "Mid-Low Earner",
+  ) %>% as.factor())
+
+glimpse(clean_df)
+```
+
+```
+## Rows: 100
+## Columns: 19
+## $ v1           <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ id           <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ educ         <int> 14, 15, 23, 14, 22, 15, 23, 21, 21, 20, 13, 12, 22, 12, 2…
+## $ age          <int> 58, 32, 47, 35, 51, 73, 46, 66, 38, 53, 19, 52, 24, 69, 5…
+## $ sex          <chr> "female", "male", "male", "female", "male", "male", "male…
+## $ race         <chr> "other", "black", "other", "other", "white", "white", "la…
+## $ married      <int> 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, …
+## $ income_1     <int> 42504, 45341, 69261, 41654, 66149, 46009, 68791, 62362, 6…
+## $ income_2     <int> 56418, 59810, 92139, 56264, 88635, 59918, 91662, 83720, 8…
+## $ depression_1 <int> 23, 20, 16, 14, 10, 14, 13, 6, 20, 11, 24, 21, 12, 10, 10…
+## $ depression_2 <int> 26, 25, 20, 19, 13, 17, 17, 5, 26, 13, 28, 24, 14, 12, 12…
+## $ anx_1        <int> 21, 20, 15, 15, 8, 14, 16, 5, 17, 11, 26, 23, 12, 10, 12,…
+## $ anx_2        <int> 22, 23, 19, 10, 7, 16, 17, 4, 19, 10, 25, 22, 9, 12, 12, …
+## $ smoking      <chr> "Non-smoker", "Smoker", "Smoker", "99", "Non-smoker", "No…
+## $ race_f       <fct> other, black, other, other, white, white, latinx, white, …
+## $ smoking_f    <fct> Non-smoker, Smoker, Smoker, 99, Non-smoker, Non-smoker, N…
+## $ sex_f        <fct> female, male, male, female, male, male, male, female, fem…
+## $ married_f    <fct> not married, not married, not married, married, not marri…
+## $ income_cat   <fct> Mid-Low Earner, Mid-Low Earner, Mid-High Earner, Low Earn…
+```
+
+This last one is a complex example but it shows the utility of `case_when()`. Any guesses what this is doing?
+
+
+```r
+data %>% 
+  rowwise() %>% 
+  mutate(
+    var1 = 
+      case_when(
+        sum(
+          item1 > 2,
+          item2 > 2,
+          item3 > 2,
+          item4 > 2,
+          item5 > 2,
+          na.rm=TRUE
+        ) >= 6 &
+        sum(
+          perf1 > 3,
+          perf2 > 3,
+          perf3 > 3,
+          na.rm=TRUE
+        ) > 0 ~ 1,
+        TRUE ~ 0
+      )
+  ) %>% 
+  ungroup() %>% 
+  mutate(var1 = factor(var1))
+```
+
+
+#### Rowsums and Rowmeans
+
+
+```r
+clean_df <- clean_df %>% 
+  mutate(dep_v1 = furniture::rowmeans(depression_1, depression_2))
+
+clean_df <- clean_df %>% 
+  rowwise() %>% 
+  mutate(dep_v2 = mean(c(depression_1, depression_2))) %>% 
+  ungroup()
+
+glimpse(clean_df)
+```
+
+```
+## Rows: 100
+## Columns: 21
+## $ v1           <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ id           <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ educ         <int> 14, 15, 23, 14, 22, 15, 23, 21, 21, 20, 13, 12, 22, 12, 2…
+## $ age          <int> 58, 32, 47, 35, 51, 73, 46, 66, 38, 53, 19, 52, 24, 69, 5…
+## $ sex          <chr> "female", "male", "male", "female", "male", "male", "male…
+## $ race         <chr> "other", "black", "other", "other", "white", "white", "la…
+## $ married      <int> 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, …
+## $ income_1     <int> 42504, 45341, 69261, 41654, 66149, 46009, 68791, 62362, 6…
+## $ income_2     <int> 56418, 59810, 92139, 56264, 88635, 59918, 91662, 83720, 8…
+## $ depression_1 <int> 23, 20, 16, 14, 10, 14, 13, 6, 20, 11, 24, 21, 12, 10, 10…
+## $ depression_2 <int> 26, 25, 20, 19, 13, 17, 17, 5, 26, 13, 28, 24, 14, 12, 12…
+## $ anx_1        <int> 21, 20, 15, 15, 8, 14, 16, 5, 17, 11, 26, 23, 12, 10, 12,…
+## $ anx_2        <int> 22, 23, 19, 10, 7, 16, 17, 4, 19, 10, 25, 22, 9, 12, 12, …
+## $ smoking      <chr> "Non-smoker", "Smoker", "Smoker", "99", "Non-smoker", "No…
+## $ race_f       <fct> other, black, other, other, white, white, latinx, white, …
+## $ smoking_f    <fct> Non-smoker, Smoker, Smoker, 99, Non-smoker, Non-smoker, N…
+## $ sex_f        <fct> female, male, male, female, male, male, male, female, fem…
+## $ married_f    <fct> not married, not married, not married, married, not marri…
+## $ income_cat   <fct> Mid-Low Earner, Mid-Low Earner, Mid-High Earner, Low Earn…
+## $ dep_v1       <dbl> 24.5, 22.5, 18.0, 16.5, 11.5, 15.5, 15.0, 5.5, 23.0, 12.0…
+## $ dep_v2       <dbl> 24.5, 22.5, 18.0, 16.5, 11.5, 15.5, 15.0, 5.5, 23.0, 12.0…
+```
+
+### Forcats Package
+
+
+```r
+library(forcats) # forcats is also in tidyverse so if you downloaded tidyverse you don't need to download this as well
+```
+
+#### Relevel
+
+You can manually reorder factor levels
+
+
+```r
+clean_df %>% 
+  mutate(race_f = fct_relevel(race_f, "white", "black", "latinx", "other"))
+```
+
+```
+## # A tibble: 100 × 21
+##       v1    id  educ   age sex    race   married income_1 income_2 depression_1
+##    <int> <int> <int> <int> <chr>  <chr>    <int>    <int>    <int>        <int>
+##  1     1     1    14    58 female other        0    42504    56418           23
+##  2     2     2    15    32 male   black        0    45341    59810           20
+##  3     3     3    23    47 male   other        0    69261    92139           16
+##  4     4     4    14    35 female other        1    41654    56264           14
+##  5     5     5    22    51 male   white        0    66149    88635           10
+##  6     6     6    15    73 male   white        1    46009    59918           14
+##  7     7     7    23    46 male   latinx       1    68791    91662           13
+##  8     8     8    21    66 female white        1    62362    83720            6
+##  9     9     9    21    38 female other        0    62716    84363           20
+## 10    10    10    20    53 female white        1    60309    80255           11
+## # … with 90 more rows, and 11 more variables: depression_2 <int>, anx_1 <int>,
+## #   anx_2 <int>, smoking <chr>, race_f <fct>, smoking_f <fct>, sex_f <fct>,
+## #   married_f <fct>, income_cat <fct>, dep_v1 <dbl>, dep_v2 <dbl>
+```
+
+#### Reorder
+
+Reorder a factor by its levels' frequency
+
+
+```r
+clean_df %>% 
+  mutate(race_f = fct_infreq(race_f))
+```
+
+```
+## # A tibble: 100 × 21
+##       v1    id  educ   age sex    race   married income_1 income_2 depression_1
+##    <int> <int> <int> <int> <chr>  <chr>    <int>    <int>    <int>        <int>
+##  1     1     1    14    58 female other        0    42504    56418           23
+##  2     2     2    15    32 male   black        0    45341    59810           20
+##  3     3     3    23    47 male   other        0    69261    92139           16
+##  4     4     4    14    35 female other        1    41654    56264           14
+##  5     5     5    22    51 male   white        0    66149    88635           10
+##  6     6     6    15    73 male   white        1    46009    59918           14
+##  7     7     7    23    46 male   latinx       1    68791    91662           13
+##  8     8     8    21    66 female white        1    62362    83720            6
+##  9     9     9    21    38 female other        0    62716    84363           20
+## 10    10    10    20    53 female white        1    60309    80255           11
+## # … with 90 more rows, and 11 more variables: depression_2 <int>, anx_1 <int>,
+## #   anx_2 <int>, smoking <chr>, race_f <fct>, smoking_f <fct>, sex_f <fct>,
+## #   married_f <fct>, income_cat <fct>, dep_v1 <dbl>, dep_v2 <dbl>
+```
+
+Reorder a factor by a numeric variable
+
+
+```r
+clean_df %>% 
+  mutate(race_f = fct_reorder(race_f, income_1))
+```
+
+```
+## # A tibble: 100 × 21
+##       v1    id  educ   age sex    race   married income_1 income_2 depression_1
+##    <int> <int> <int> <int> <chr>  <chr>    <int>    <int>    <int>        <int>
+##  1     1     1    14    58 female other        0    42504    56418           23
+##  2     2     2    15    32 male   black        0    45341    59810           20
+##  3     3     3    23    47 male   other        0    69261    92139           16
+##  4     4     4    14    35 female other        1    41654    56264           14
+##  5     5     5    22    51 male   white        0    66149    88635           10
+##  6     6     6    15    73 male   white        1    46009    59918           14
+##  7     7     7    23    46 male   latinx       1    68791    91662           13
+##  8     8     8    21    66 female white        1    62362    83720            6
+##  9     9     9    21    38 female other        0    62716    84363           20
+## 10    10    10    20    53 female white        1    60309    80255           11
+## # … with 90 more rows, and 11 more variables: depression_2 <int>, anx_1 <int>,
+## #   anx_2 <int>, smoking <chr>, race_f <fct>, smoking_f <fct>, sex_f <fct>,
+## #   married_f <fct>, income_cat <fct>, dep_v1 <dbl>, dep_v2 <dbl>
+```
+
+#### Lump
+
+When you have a factor with too many levels, you can lump all of the infrequent ones into one factor, "other". You can specify how many levels you want to include. the argument "n" is the number of levels you want to keep, besides the "other" category that will be made from the lump function. You can also include the argument other_level = "" if you would like to change the name from other to something more specific.
+
+
+```r
+clean_df %>% 
+  mutate(race_f = fct_lump(race_f, n = 2))
+```
+
+```
+## # A tibble: 100 × 21
+##       v1    id  educ   age sex    race   married income_1 income_2 depression_1
+##    <int> <int> <int> <int> <chr>  <chr>    <int>    <int>    <int>        <int>
+##  1     1     1    14    58 female other        0    42504    56418           23
+##  2     2     2    15    32 male   black        0    45341    59810           20
+##  3     3     3    23    47 male   other        0    69261    92139           16
+##  4     4     4    14    35 female other        1    41654    56264           14
+##  5     5     5    22    51 male   white        0    66149    88635           10
+##  6     6     6    15    73 male   white        1    46009    59918           14
+##  7     7     7    23    46 male   latinx       1    68791    91662           13
+##  8     8     8    21    66 female white        1    62362    83720            6
+##  9     9     9    21    38 female other        0    62716    84363           20
+## 10    10    10    20    53 female white        1    60309    80255           11
+## # … with 90 more rows, and 11 more variables: depression_2 <int>, anx_1 <int>,
+## #   anx_2 <int>, smoking <chr>, race_f <fct>, smoking_f <fct>, sex_f <fct>,
+## #   married_f <fct>, income_cat <fct>, dep_v1 <dbl>, dep_v2 <dbl>
+```
+
+In this example, we previously had four levels of the race variable: white, black, latinx, and other. When we specified n = 2, we lumped the other and black categories (the most infrequent two) into one "Other" category. It kept our two most frequent categories: white and latinx. 
+
+
+#### Other Useful Functions for Factors
+
+![Forcats cheat sheet](/Users/dculi/Box/R Course/forcatscheat.png)
+
 
 ### Group_by
 
@@ -717,70 +952,4 @@ clean_df %>%
 
 This example groups the dataset by race_f and summarizes it by the number per race (the n() argument), and provides the mean (mean()) and standard deviation (sd()) for depression scores by race. 
 
-### Mutate
-
-Anytime you see mutate() it means you are adding a new variable or modifying an existing one.  For example, lets take a look at what class our sex variable is.
-
-
-
-```r
-class(clean_df$sex)
-```
-
-```
-## [1] "character"
-```
-
-When we imported the data, R did not know sex was a factor. So, we need to change it to be factor. Using the mutate function allows us to modify existing variables, or create new variables. In this case, I make a new variable called "sex_f" and change sex to be a factor. 
-
-
-```r
-clean_df <- clean_df %>% 
-  mutate(sex_f = factor(sex))
-
-class(clean_df$sex_f)
-```
-
-```
-## [1] "factor"
-```
-
-
-### Case_when
-
-When you want to modify variables based on various possible conditions, you can use the case_when() function. For example, when a categorical variable is dummy-coded to be 0,1,2.. you can change it to have actual name labels. In this example, our married variable i supposed to be factor of 0 = not married and 1 = married. Lets look at our married variable before we use mutate and case_when.
-
-
-```r
-summary(clean_df$married)
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    0.00    0.00    0.00    0.43    1.00    1.00
-```
-
-The next code chunk will show a new variable, called "married_f" that has levels "married" and "not married" and is a factor. To do this, we need to use mutate to create the new married_f variable, and then tell r that when the married variable = 1, then label married, and if married = 0, label it not married. Note that we need to use == to specify that it is equal to something. We also need to put our labels in "" when they are words. The last line of code turns married_f into a factor, rather than a character variable. 
-
-
-
-```r
-clean_df <- clean_df %>% 
-  mutate(married_f = case_when(
-    married == 1 ~ "married",
-    married == 0 ~ "not married"
-  ) %>% as.factor())
-
-clean_df$married_f %>% 
-  summary()
-```
-
-```
-##     married not married 
-##          43          57
-```
-
-## Cut Intervals
-
-To be added
 
