@@ -366,7 +366,7 @@ In this example, we previously had four levels of the race variable: white, blac
 
 #### Other Useful Functions for Factors
 
-![Forcats cheat sheet](/Users/dculi/Box/R Course/forcatscheat.png)
+![Forcats cheat sheet](forcatscheat.png)
 
 
 ### Group_by
